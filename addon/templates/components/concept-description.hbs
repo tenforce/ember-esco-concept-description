@@ -1,0 +1,73 @@
+<span class="title">{{concept.preflabel}}</span>
+{{#if showUri}}<span class="uri">{{concept.decodedUri}}</span>{{/if}}
+{{#if showCodes}}
+  <div class="codes">
+    {{#each visibleCodes as |code|}}
+      <div class="labeled {{code.name}}">
+        <span class="label">{{code.name}}</span>
+        <span class="value">{{get concept code.data}}</span>
+      </div>
+    {{/each}}
+  </div>
+{{/if}}
+<div class="description">
+  {{concept.description}}
+</div>
+
+  {{#if showAltLabels}}
+    <div class="altlabels block">
+      <div class="block-title">
+        Non-preferred terms
+      </div>
+      <div class="block-content">
+        {{#each concept.altLabels as |altLabel|}}
+          <span>{{altLabel}}</span>
+        {{/each}}
+      </div>
+    </div>
+  {{/if}}
+
+  {{#if showHiddenLabels}}
+    <div class="altlabels block">
+      <div class="block-title">
+        Hidden terms
+      </div>
+      <div class="block-content">
+        {{#each concept.hiddenLabels as |hiddenLabel|}}
+          <span>{{hiddenLabel}}</span>
+        {{/each}}
+      </div>
+    </div>
+  {{/if}}
+{{#if fullDetail}}
+  {{#if showOptionalSkills}}
+    <div class="optionalSkills block">
+      <div class="block-title">
+        Optional Skills
+      </div>
+      <div class="block-content">
+        {{#each optionalSkills as |skill|}}
+          <span>{{skill.preflabel}}</span>
+        {{/each}}
+      </div>
+    </div>
+  {{/if}}
+  {{#if showEssentialSkills}}
+    <div class="essentialSkills block">
+      <div class="block-title">
+        Essential Skills
+      </div>
+      <div class="block-content">
+        {{#each essentialSkills as |skill|}}
+          <span>{{skill.preflabel}}</span>
+        {{/each}}
+      </div>
+    </div>
+  {{/if}}
+{{/if}}
+{{#if hasDetail}}
+  <div class="buttons">
+    <span class="toggleDetail" {{action "toggleDetail"}}><i class="fa fa-ellipsis-h"></i></span>
+  </div>
+{{/if}}
+
