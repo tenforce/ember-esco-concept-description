@@ -9,7 +9,7 @@ ConceptDescriptionComponent = Ember.Component.extend
     { name: "NACE", data: "naceCode" }
   ]
   fullDetail: false
-  hasDetail: Ember.computed.or 'showAltLabels', 'showOptionalSkills', 'showEssentialSkills'
+  hasDetail: Ember.computed.or 'showOptionalSkills', 'showEssentialSkills'
   showAltLabels: Ember.computed.notEmpty 'concept.altLabels'
   showUri: true
   optionalSkills: Ember.computed 'concept.optionalSkills', ->
