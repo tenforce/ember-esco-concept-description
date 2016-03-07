@@ -16,7 +16,7 @@ ConceptDescriptionComponent = Ember.Component.extend
     @get('concept.optionalSkills').sortBy('preflabel')
   essentialSkills: Ember.computed 'concept.essentialSkills', ->
     @get('concept.essentialSkills').sortBy('preflabel')  
-  showHiddenLabels: Ember.computed.notEmpty 'concept.altLabels'  
+  showHiddenLabels: Ember.computed.notEmpty 'concept.hiddenLabels'  
   showOptionalSkills: Ember.computed.notEmpty 'concept.optionalSkills'
   showEssentialSkills: Ember.computed.notEmpty 'concept.essentialSkills'
   showCodes: Ember.computed.notEmpty 'visibleCodes'
