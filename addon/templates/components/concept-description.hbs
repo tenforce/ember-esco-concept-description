@@ -1,4 +1,4 @@
-<span class="title">{{concept.preflabel}}</span>
+<span class="title">{{concept.title}}</span>
 {{#if showUri}}<span class="uri">{{concept.decodedUri}}</span>{{/if}}
 {{#if showCodes}}
   <div class="codes">
@@ -21,7 +21,7 @@
       </div>
       <div class="block-content">
         {{#each concept.altLabels as |altLabel|}}
-          <span>{{altLabel}}</span>
+          <span>{{altLabel.literalForm}}</span>
         {{/each}}
       </div>
     </div>
@@ -34,7 +34,7 @@
       </div>
       <div class="block-content">
         {{#each concept.hiddenLabels as |hiddenLabel|}}
-          <span>{{hiddenLabel}}</span>
+          <span>{{hiddenLabel.literalForm}}</span>
         {{/each}}
       </div>
     </div>
@@ -47,7 +47,7 @@
       </div>
       <div class="block-content">
         {{#each optionalSkills as |skill|}}
-          <span>{{skill.preflabel}}</span>
+          <span>{{skill.title}}</span>
         {{/each}}
       </div>
     </div>
@@ -59,7 +59,7 @@
       </div>
       <div class="block-content">
         {{#each essentialSkills as |skill|}}
-          <span>{{skill.preflabel}}</span>
+          <span>{{skill.title}}</span>
         {{/each}}
       </div>
     </div>
