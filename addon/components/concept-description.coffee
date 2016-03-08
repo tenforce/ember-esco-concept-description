@@ -10,13 +10,13 @@ ConceptDescriptionComponent = Ember.Component.extend
   ]
   fullDetail: false
   hasDetail: Ember.computed.or 'showOptionalSkills', 'showEssentialSkills'
-  showAltLabels: Ember.computed.notEmpty 'concept.altLabels'
+  showAltLabels: Ember.computed.notEmpty 'concept.defaultAltLabels'
+  showHiddenLabels: Ember.computed.notEmpty 'concept.defaultHiddenLabels'    
   showUri: true
   optionalSkills: Ember.computed 'concept.optionalSkills', ->
-    @get('concept.optionalSkills').sortBy('preflabel')
+    @get('concept.optionalSkills').sortBy('defaultPrefLabel.literalForm')
   essentialSkills: Ember.computed 'concept.essentialSkills', ->
-    @get('concept.essentialSkills').sortBy('preflabel')  
-  showHiddenLabels: Ember.computed.notEmpty 'concept.hiddenLabels'  
+    @get('concept.essentialSkills').sortBy('defaultPrefLabel.literalForm')  
   showOptionalSkills: Ember.computed.notEmpty 'concept.optionalSkills'
   showEssentialSkills: Ember.computed.notEmpty 'concept.essentialSkills'
   showCodes: Ember.computed.notEmpty 'visibleCodes'
