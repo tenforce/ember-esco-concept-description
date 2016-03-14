@@ -1,4 +1,4 @@
-<span class="title">{{concept.defaultPrefLabel}}</span>
+<span class="title">{{await concept.defaultPrefLabel}}</span>
 {{#if showUri}}<span class="uri">{{concept.decodedUri}}</span>{{/if}}
 {{#if showCodes}}
   <div class="codes">
@@ -14,52 +14,61 @@
   {{concept.defaultDescription}}
 </div>
 
-  {{#if showAltLabels}}
-    <div class="altlabels block">
-      <div class="block-title">
-        Non-preferred terms
-      </div>
-      <div class="block-content">
-        {{#each concept.defaultAltLabels as |altLabel|}}
-          <span>{{altLabel.literalForm}}</span>
-        {{/each}}
-      </div>
+{{#if (await showAltLabels)}}
+  <div class="altlabels block">
+    <div class="block-title">
+      Non-preferred terms
     </div>
-  {{/if}}
+    <div class="block-content">
+      {{#each (await concept.defaultAltLabels) as |altLabel|}}
+        <span>{{altLabel.literalForm}}</span>
+      {{/each}}
+    </div>
+  </div>
+{{/if}}
 
-  {{#if showHiddenLabels}}
-    <div class="altlabels block">
-      <div class="block-title">
-        Hidden terms
-      </div>
-      <div class="block-content">
-        {{#each concept.defaultHiddenLabels as |hiddenLabel|}}
-          <span>{{hiddenLabel.literalForm}}</span>
-        {{/each}}
-      </div>
+{{#if (await showHiddenLabels)}}
+  <div class="altlabels block">
+    <div class="block-title">
+      Hidden terms
     </div>
-  {{/if}}
+    <div class="block-content">
+      {{#each (await concept.defaultHiddenLabels) as |hiddenLabel|}}
+        <span>{{hiddenLabel.literalForm}}</span>
+      {{/each}}
+    </div>
+  </div>
+{{/if}}
+
 {{#if fullDetail}}
-  {{#if showOptionalSkills}}
+  {{#if (await showOptionalSkills)}}
     <div class="optionalSkills block">
       <div class="block-title">
         Optional Skills
       </div>
       <div class="block-content">
-        {{#each optionalSkills as |skill|}}
-          <span>{{skill.defaultPrefLabels.firstObject.literalForm}}</span>
+        {{#each (await optionalSkills) as |skill|}}
+          {{#if (is-pending skill.defaultPrefLabels) }}
+            Loading...
+          {{else}}
+            <span>{{await skill.defaultPrefLabel}}</span>
+          {{/if}}
         {{/each}}
-      </div>
+      </div> 
     </div>
   {{/if}}
-  {{#if showEssentialSkills}}
+  {{#if (await showEssentialSkills)}}
     <div class="essentialSkills block">
       <div class="block-title">
         Essential Skills
       </div>
       <div class="block-content">
-        {{#each essentialSkills as |skill|}}
-          <span>{{skill.defaultPrefLabels.firstObject.literalForm}}</span>
+        {{#each (await essentialSkills) as |skill|}}
+          {{#if (is-pending skill.defaultPrefLabels) }}
+            Loading...
+          {{else}}
+            <span>{{await skill.defaultPrefLabel}}</span>
+          {{/if}}
         {{/each}}
       </div>
     </div>

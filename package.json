@@ -1,6 +1,6 @@
 {
   "name": "ember-esco-concept-description",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The default blueprint for ember-cli addons.",
   "directories": {
     "doc": "doc",
@@ -34,7 +34,8 @@
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
     "ember-resolver": "^2.0.3",
-    "ember-try": "~0.0.8"
+    "ember-try": "~0.0.8",
+    "ember-promise-helpers": "1.0.1"
   },
   "keywords": [
     "ember-addon"

@@ -10,15 +10,25 @@ ConceptDescriptionComponent = Ember.Component.extend
   ]
   fullDetail: false
   hasDetail: Ember.computed.or 'showOptionalSkills', 'showEssentialSkills'
-  showAltLabels: Ember.computed.notEmpty 'concept.defaultAltLabels'
-  showHiddenLabels: Ember.computed.notEmpty 'concept.defaultHiddenLabels'    
+  showAltLabels: Ember.computed 'concept.defaultAltLabels', ->
+    @get('concept.defaultAltLabels').then (labels) ->
+      not Ember.isEmpty(labels)
+  showHiddenLabels: Ember.computed 'concept.defaultHiddenLabels', ->
+    @get('concept.defaultHiddenLabels').then (labels) ->
+      not Ember.isEmpty(labels)
   showUri: true
   optionalSkills: Ember.computed 'concept.optionalSkills', ->
-    @get('concept.optionalSkills').sortBy('defaultPrefLabel.literalForm')
+    @get('concept.optionalSkills').then (skills) ->
+      skills.sortBy('defaultPrefLabel.literalForm')
   essentialSkills: Ember.computed 'concept.essentialSkills', ->
-    @get('concept.essentialSkills').sortBy('defaultPrefLabel.literalForm')  
-  showOptionalSkills: Ember.computed.notEmpty 'concept.optionalSkills'
-  showEssentialSkills: Ember.computed.notEmpty 'concept.essentialSkills'
+    @get('concept.essentialSkills').then (skills) ->
+      skills.sortBy('defaultPrefLabel.literalForm')  
+  showOptionalSkills: Ember.computed 'concept.optionalSkills', ->
+    @get('concept.optionalSkills').then (skills) ->
+      not Ember.isEmpty(skills)
+  showEssentialSkills: Ember.computed 'concept.essentialSkills', ->
+    @get('concept.essentialSkills').then (skills) ->
+      not Ember.isEmpty(skills)
   showCodes: Ember.computed.notEmpty 'visibleCodes'
   visibleCodes: Ember.computed 'codes', 'concept.isLoaded', ->
     result = []
