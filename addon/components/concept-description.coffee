@@ -22,7 +22,7 @@ ConceptDescriptionComponent = Ember.Component.extend
       skills.sortBy('defaultPrefLabel.literalForm')
   essentialSkills: Ember.computed 'concept.essentialSkills', ->
     @get('concept.essentialSkills').then (skills) ->
-      skills.sortBy('defaultPrefLabel.literalForm')  
+      skills.sortBy('defaultPrefLabel.literalForm')
   showOptionalSkills: Ember.computed 'concept.optionalSkills', ->
     @get('concept.optionalSkills').then (skills) ->
       not Ember.isEmpty(skills)
@@ -39,7 +39,7 @@ ConceptDescriptionComponent = Ember.Component.extend
     return result
   actions:
     toggleDetail: ->
-      @set 'fullDetail', not @get('fullDetail')
+      @toggleProperty 'fullDetail'
 
 
 `export default ConceptDescriptionComponent`
