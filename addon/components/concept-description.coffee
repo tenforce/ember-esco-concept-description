@@ -4,6 +4,7 @@
 ConceptDescriptionComponent = Ember.Component.extend
   layout: layout
   classNames: ["concept"]
+  classNameBindings: [ "fullDetail:open" ]
   codes: [
     { name: "ISCO", data: "iscoCode" },
     { name: "NACE", data: "naceCode" }
