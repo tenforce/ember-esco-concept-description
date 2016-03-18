@@ -3,9 +3,6 @@
 `import HasManyQuery from 'ember-data-has-many-query'`
 
 EscoLabelMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
-  prefLabelOf: DS.belongsTo('concept', inverse: "prefLabels")
-  altLabelOf: DS.hasMany('concept', inverse: "altLabels")
-  hiddenLabelOf: DS.hasMany('concept', inverse: "hiddenLabels")
   literalFormValues: DS.attr('lang-string-set')
   roles: DS.hasMany('label-role')
 
