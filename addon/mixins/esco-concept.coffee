@@ -9,6 +9,7 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   altLabels: DS.hasMany('concept-label')
   hiddenLabels: DS.hasMany('concept-label')
   description: DS.attr('lang-string-set')
+  definition: DS.attr('lang-string-set')
   narrower: DS.hasMany('concept', {inverse: 'broader'})
   broader: DS.hasMany('concept', {inverse: 'narrower'})
   topConceptOf: DS.belongsTo('taxonomy', {inverse: 'topConcepts'})
