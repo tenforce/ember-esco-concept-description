@@ -12,8 +12,6 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   definition: DS.attr('lang-string-set')
   narrower: DS.hasMany('concept', {inverse: 'broader'})
   broader: DS.hasMany('concept', {inverse: 'narrower'})
-  topConceptOf: DS.belongsTo('taxonomy', {inverse: 'topConcepts'})
-  taxonomy: DS.belongsTo('taxonomy', {inverse: null})
   relations: DS.hasMany('concept-relation', {inverse: 'from'})
   optionalSkills: Ember.computed 'relations', ->
     @get('relations').then (relations) =>
