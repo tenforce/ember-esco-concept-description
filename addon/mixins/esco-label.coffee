@@ -28,17 +28,27 @@ EscoLabelMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
 
   # modifiers
   setGender: (role, isActive) ->
-    if isActive
-      @get('roles').then =>
-        @get('roles').pushObject(role)
-    else
-      @get('roles').removeObject(role)
+    new Promise (resolve, reject) =>
+      success =   =>
+        if isActive
+          @get('roles').pushObject(role)
+        else
+          @get('roles').removeObject(role)
+        resolve()
+      failure = (err) ->
+        reject(err)
+      @get('roles').then(success,failure)
   toggleGender: (role) ->
-    @get('roles').then =>
-      if @get('roles').contains(role)
-        @get('roles').removeObject(role)
-      else
-        @get('roles').addObject(role)
+    new Promise (resolve, reject) =>
+      success =   =>
+        if @get('roles').contains(role)
+          @get('roles').removeObject(role)
+        else
+          @get('roles').addObject(role)
+        resolve()
+      failure = (err) ->
+        reject(err)
+      @get('roles').then(success,failure)
 
 
 `export default EscoLabelMixin`
