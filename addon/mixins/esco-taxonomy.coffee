@@ -5,7 +5,7 @@
 Taxonomy = Ember.Mixin.create HasManyQuery.ModelMixin,
   preflabel: DS.attr('string')
   description: DS.attr('string')
-  topConcepts: DS.hasMany('concept', {inverse: 'topConceptOf'})
+  topConcepts: DS.hasMany('concept', {inverse: null})
 
 `export default Taxonomy`
 
