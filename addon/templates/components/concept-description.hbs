@@ -74,9 +74,9 @@
     </div>
   {{/if}}
 {{/if}}
-{{#if hasDetail}}
-<div class="btn-toggle-more" {{action "toggleDetail"}}>
-  <i class="fa fa-angle-down"></i>
-</div>
+{{#if (await hasDetail)}}
+  <div class="btn-toggle-more" {{action "toggleDetail"}}>
+    <i class="fa fa-angle-down"></i>
+  </div>
 {{/if}}
 
