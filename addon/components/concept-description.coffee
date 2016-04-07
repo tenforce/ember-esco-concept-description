@@ -53,6 +53,11 @@ ConceptDescriptionComponent = Ember.Component.extend
       if @get "concept.#{code.data}"
         result.push code
     return result
+  toggleTooltip: Ember.computed 'fullDetail', ->
+    if @get 'fullDetail'
+      "collapse"
+    else
+      "expand"
   actions:
     toggleDetail: ->
       @toggleProperty 'fullDetail'
