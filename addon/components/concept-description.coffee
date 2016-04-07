@@ -26,6 +26,16 @@ ConceptDescriptionComponent = Ember.Component.extend
   optionalSkills: Ember.computed 'concept.optionalSkills', ->
     @get('concept.optionalSkills').then (skills) ->
       skills.sortBy('defaultPrefLabel.literalForm')
+  _getSkillLabels: (skills) ->
+    promises = skills.map (skill) ->
+      skill.get('defaultPrefLabel')
+    Ember.RSVP.all(promises)
+  optionalSkillLabels: Ember.computed 'concept.optionalSkills', ->
+    @get('concept.optionalSkills').then (skills) =>
+      @_getSkillLabels(skills)
+  essentialSkillLabels: Ember.computed 'concept.essentialSkills', ->
+    @get('concept.essentialSkills').then (skills) =>
+      @_getSkillLabels(skills)
   essentialSkills: Ember.computed 'concept.essentialSkills', ->
     @get('concept.essentialSkills').then (skills) ->
       skills.sortBy('defaultPrefLabel.literalForm')

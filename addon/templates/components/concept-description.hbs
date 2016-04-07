@@ -47,13 +47,15 @@
         Optional Skills
       </div>
       <div class="block-content">
-        {{#each (await optionalSkills) as |skill|}}
-          {{#if (is-pending skill.defaultPrefLabels) }}
-            Loading...
-          {{else}}
+        {{#if (is-pending optionalSkillLabels) }}
+          <div class="loading">
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+          </div>
+        {{else}}
+          {{#each (await optionalSkills) as |skill|}}
             <span>{{await skill.defaultPrefLabel}}</span>
-          {{/if}}
-        {{/each}}
+          {{/each}}
+        {{/if}}
       </div> 
     </div>
   {{/if}}
@@ -63,13 +65,15 @@
         Essential Skills
       </div>
       <div class="block-content">
-        {{#each (await essentialSkills) as |skill|}}
-          {{#if (is-pending skill.defaultPrefLabels) }}
-            Loading...
-          {{else}}
+        {{#if (is-pending essentialSkillLabels) }}
+          <div class="loading">
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+          </div>
+        {{else}}
+          {{#each (await essentialSkills) as |skill|}}
             <span>{{await skill.defaultPrefLabel}}</span>
-          {{/if}}
-        {{/each}}
+          {{/each}}
+        {{/if}}
       </div>
     </div>
   {{/if}}
