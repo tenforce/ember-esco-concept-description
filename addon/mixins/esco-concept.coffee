@@ -5,6 +5,7 @@
 EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   # note: computed properties need promise so await will work...
   defaultLanguage: "en"
+  code: DS.attr('string')
   prefLabels: DS.hasMany('concept-label')
   altLabels: DS.hasMany('concept-label')
   hiddenLabels: DS.hasMany('concept-label')

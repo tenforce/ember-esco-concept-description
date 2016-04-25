@@ -2,10 +2,10 @@
 `import DS from 'ember-data'`
 `import HasManyQuery from 'ember-data-has-many-query'`
 
-Taxonomy = Ember.Mixin.create HasManyQuery.ModelMixin,
-  preflabel: DS.attr('string')
+Hierarchy = Ember.Mixin.create HasManyQuery.ModelMixin,
+  name: DS.attr('string')
   description: DS.attr('string')
   topConcepts: DS.hasMany('concept', {inverse: null})
 
-`export default Taxonomy`
+`export default Hierarchy`
 
