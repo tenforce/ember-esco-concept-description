@@ -1,4 +1,5 @@
-<span class="title">{{await concept.defaultPrefLabel}}</span>
+<div class="title">{{await concept.defaultPrefLabel}}</div>
+<div class="content">
 {{#if showUri}}<span class="uri">{{concept.decodedUri}}</span>{{/if}}
 {{#if showCodes}}
   <div class="codes">
@@ -56,7 +57,7 @@
             <span>{{await skill.defaultPrefLabel}}</span>
           {{/each}}
         {{/if}}
-      </div> 
+      </div>
     </div>
   {{/if}}
   {{#if (await showEssentialSkills)}}
@@ -78,6 +79,7 @@
     </div>
   {{/if}}
 {{/if}}
+</div>
 {{#if (await hasDetail)}}
   <div class="btn-toggle-more" {{action "toggleDetail"}} title={{toggleTooltip}}>
     <i class="fa fa-angle-down"></i>
