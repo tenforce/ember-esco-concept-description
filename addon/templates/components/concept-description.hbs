@@ -42,24 +42,6 @@
 {{/if}}
 
 {{#if fullDetail}}
-  {{#if (await showOptionalSkills)}}
-    <div class="optionalSkills block">
-      <div class="block-title">
-        Optional Skills
-      </div>
-      <div class="block-content">
-        {{#if (is-pending optionalSkillLabels) }}
-          <div class="loading">
-            <i class="fa fa-circle-o-notch fa-spin"></i>
-          </div>
-        {{else}}
-          {{#each (await optionalSkills) as |skill|}}
-            <span>{{await skill.defaultPrefLabel}}</span>
-          {{/each}}
-        {{/if}}
-      </div>
-    </div>
-  {{/if}}
   {{#if (await showEssentialSkills)}}
     <div class="essentialSkills block">
       <div class="block-title">
@@ -72,6 +54,24 @@
           </div>
         {{else}}
           {{#each (await essentialSkills) as |skill|}}
+            <span>{{await skill.defaultPrefLabel}}</span>
+          {{/each}}
+        {{/if}}
+      </div>
+    </div>
+  {{/if}}
+  {{#if (await showOptionalSkills)}}
+    <div class="optionalSkills block">
+      <div class="block-title">
+        Optional Skills
+      </div>
+      <div class="block-content">
+        {{#if (is-pending optionalSkillLabels) }}
+          <div class="loading">
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+          </div>
+        {{else}}
+          {{#each (await optionalSkills) as |skill|}}
             <span>{{await skill.defaultPrefLabel}}</span>
           {{/each}}
         {{/if}}
