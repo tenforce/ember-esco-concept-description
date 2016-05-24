@@ -16,16 +16,24 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   relations: DS.hasMany('concept-relation', {inverse: 'from'})
   optionalSkills: Ember.computed 'relations', ->
     @get('relations').then (relations) =>
-      relations?.filter( (item) ->
-        item.get('type') == 'http://data.europa.eu/esco/RelationshipType#iC.optionalSkill'
-      )?.map (item) ->
-        item.get('to')
+      promises = []
+      promises = relations.map (item) ->
+        promises.push(item.get('to'))
+      Ember.RSVP.all(promises).then =>
+        relations?.filter( (item) ->
+          item.get('type') == 'http://data.europa.eu/esco/RelationshipType#iC.optionalSkill'
+        )?.map (item) ->
+          item.get('to')
   essentialSkills: Ember.computed 'relations', ->
     @get('relations').then (relations) =>
-      relations?.filter( (item) ->
-        item.get('type') == 'http://data.europa.eu/esco/RelationshipType#iC.essentialSkill'
-      )?.map (item) ->
-        item.get('to')
+      promises = []
+      promises = relations.map (item) ->
+        promises.push(item.get('to'))
+      Ember.RSVP.all(promises).then =>
+        relations?.filter( (item) ->
+          item.get('type') == 'http://data.europa.eu/esco/RelationshipType#iC.essentialSkill'
+        )?.map (item) ->
+          item.get('to')
   defaultDescription: Ember.computed 'description.@each.language', ->
     @get('description')?.filterBy('language', @get('defaultLanguage'))?.get('firstObject.content')
   defaultPrefLabel: Ember.computed 'defaultPrefLabels.firstObject.literalForm', ->

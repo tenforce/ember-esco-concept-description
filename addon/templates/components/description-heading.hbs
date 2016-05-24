@@ -1,7 +1,6 @@
-Title : {{title}}
-Items length : {{items.length}}
-TagName : {{tagName}}
-ClassName: {{className}}
-{{#each items as |item|}}
-  {{description-item item=item target=target}}
-{{/each}}
+{{#if title}}
+  {{description-title concept=concept model=title pTagName=titleTagName pClassNames=titleClassNames}}
+{{/if}}
+{{#if items}}
+  {{description-items model=items concept=concept}}
+{{/if}}

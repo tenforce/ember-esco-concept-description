@@ -1,17 +1,24 @@
 `import Ember from 'ember'`
 `import layout from '../templates/components/description-item'`
+`import ClassNamesGetterMixin from '../mixins/class-names-getter'`
+`import TagNameGetterMixin from '../mixins/tag-name-getter'`
 
-DescriptionItemComponent = Ember.Component.extend
+DescriptionItemComponent = Ember.Component.extend ClassNamesGetterMixin, TagNameGetterMixin,
   layout: layout
-  title: Ember.computed.alias 'item.title'
-  type: Ember.computed.alias 'item.type'
-  name: Ember.computed.alias 'item.name'
-  component: Ember.computed.alias 'item.component'
-  tagName: Ember.computed 'item.tagName', ->
-    if @get('item.tagName') then @get('item.tagName')
-    else ''
-  className: Ember.computed 'item.className', ->
-    if @get('item.className') then @get('item.className')
-    else ''
+  title: Ember.computed.alias 'model.title'
+  target: Ember.computed.alias 'model.target'
+
+  init: ->
+    this._super()
+    console.log "item model : "+JSON.stringify @get('model')
+
+  defaultTagName: 'div'
+  defaultClassNames: ['description-item']
+
+  titleTagName: Ember.computed.alias 'model.title.tagName'
+  titleClassNames: Ember.computed.alias 'model.title.classNames'
+
+  targetTagName: Ember.computed.alias 'model.target.tagName'
+  targetClassNames: Ember.computed.alias 'model.target.classNames'
 
 `export default DescriptionItemComponent`

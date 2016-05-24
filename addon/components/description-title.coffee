@@ -3,15 +3,19 @@
 
 DescriptionTitleComponent = Ember.Component.extend
   layout: layout
-  title: Ember.computed.alias 'title.title'
-  type: Ember.computed.alias 'title.type'
-  name: Ember.computed.alias 'title.name'
-  component: Ember.computed.alias 'title.component'
-  tagName: Ember.computed 'title.tagName', ->
-    if @get('title.tagName') then @get('title.tagName')
-    else ''
-  className: Ember.computed 'title.className', ->
-    if @get('title.className') then @get('item.className')
-    else ''
+
+  tagName: ''
+  classNames: ['']
+
+  defaultTagName: 'div'
+  defaultClassNames: ['title']
+
+  getTagName: Ember.computed 'pTagName', ->
+    if @get('pTagName') then @get('pTagName')
+    else @get('defaultTagName')
+
+  getClassNames: Ember.computed 'pClassNames', ->
+    if @get('pClassNames') then @get('pClassNames')
+    else @get('defaultClassNames')
 
 `export default DescriptionTitleComponent`

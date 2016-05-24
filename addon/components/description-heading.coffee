@@ -1,11 +1,19 @@
 `import Ember from 'ember'`
 `import layout from '../templates/components/description-heading'`
+`import ClassNamesGetterMixin from '../mixins/class-names-getter'`
+`import TagNameGetterMixin from '../mixins/tag-name-getter'`
 
-DescriptionHeadingComponent = Ember.Component.extend
+DescriptionHeadingComponent = Ember.Component.extend ClassNamesGetterMixin, TagNameGetterMixin,
   layout: layout
-  title: Ember.computed.alias 'heading.title'
-  items: Ember.computed 'heading.items', ->
-    if @get('heading.items') then @get('heading.items')
+  title: Ember.computed.alias 'model.title'
+  items: Ember.computed 'model.items', ->
+    if @get('model.items') then @get('model.items')
     else []
+
+  titleTagName: Ember.computed.alias 'model.title.tagName'
+  titleClassNames: Ember.computed.alias 'model.title.classNames'
+
+  defaultTagName: 'div'
+  defaultClassNames: ['description-heading']
 
 `export default DescriptionHeadingComponent`

@@ -1,6 +1,6 @@
-TagName : {{tagName}}
-ClassName : {{className}}
-{{description-title title=title}}
-{{#each headings as |heading|}}
-  {{description-heading.item heading=heading concept=concept}}
-{{/each}}
+{{#if title}}
+  {{description-item model=title concept=concept}}
+{{/if}}
+{{#if headings}}
+  {{description-headings model=headings concept=concept}}
+{{/if}}

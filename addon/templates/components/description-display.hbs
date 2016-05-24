@@ -1,0 +1,17 @@
+{{#unless (await isEmpty)}}
+{{#if (eq type 'hasMany')}}
+  {{#each (await value) as |subvalue|}}
+    {{description-display-relation model=subvalue name=subName tagName=getTagName classNames=getClassNames}}
+  {{/each}}
+{{else if (eq type 'hasOne')}}
+  {{description-display-relation model=value name=subName tagName=getTagName classNames=getClassNames}}
+{{else if (eq type 'component')}}
+  {{component (await value) concept=concept model=model tagName=getTagName classNames=getClassNames}}
+{{else if (await isArray)}}
+  {{#each (await value) as |subvalue|}}
+    {{description-display-value concept=concept value=subvalue tagName=getTagName classNames=getClassNames}}
+  {{/each}}
+{{else}}
+  {{description-display-value concept=concept value=(await value) tagName=getTagName classNames=getClassNames}}
+{{/if}}
+{{/unless}}

@@ -1,15 +1,17 @@
 `import Ember from 'ember'`
 `import layout from '../templates/components/concept-description'`
+`import ClassNamesGetterMixin from '../mixins/class-names-getter'`
+`import TagNameGetterMixin from '../mixins/tag-name-getter'`
 
-ConceptDescriptionComponent = Ember.Component.extend
+ConceptDescriptionComponent = Ember.Component.extend ClassNamesGetterMixin, TagNameGetterMixin,
   layout: layout
-  title: Ember.computed.alias "config.title"
-  headings: Ember.computed.alias "config.headings"
-  tagName: Ember.computed 'config.tagName', ->
-    if @get('config.tagName') then @get('config.tagName')
-    else ''
-  className: Ember.computed 'config.className', ->
-    if @get('config.className') then @get('config.className')
-    else ''
+  title: Ember.computed.alias 'model.title'
+  headings: Ember.computed.alias 'model.headings'
+
+  titleTagName: Ember.computed.alias 'model.title.tagName'
+  titleClassNames: Ember.computed.alias 'model.title.classNames'
+
+  defaultTagName: 'div'
+  defaultClassNames: ['concept-description']
 
 `export default ConceptDescriptionComponent`
