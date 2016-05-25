@@ -8,10 +8,6 @@ DescriptionItemShowComponent = Ember.Component.extend ClassNamesGetterMixin, Tag
   label: Ember.computed.alias 'model.label'
   target: Ember.computed.alias 'model.target'
 
-  init: ->
-    this._super()
-    console.log "item model : "+JSON.stringify @get('model')
-
   defaultTagName: 'div'
   defaultClassNames: ['description-item-show']
 
