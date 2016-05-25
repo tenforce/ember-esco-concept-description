@@ -1,6 +1,3 @@
-{{#if title}}
-  {{description-title concept=concept model=title pTagName=titleTagName pClassNames=titleClassNames}}
-{{/if}}
-{{#if target}}
-  {{description-display concept=concept model=target pTagName=targetTagName pClassNames=targetClassNames}}
+{{#if (await shouldShow)}}
+  {{description-item-show model=model concept=concept}}
 {{/if}}
