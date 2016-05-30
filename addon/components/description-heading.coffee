@@ -16,4 +16,12 @@ DescriptionHeadingComponent = Ember.Component.extend ClassNamesGetterMixin, TagN
   defaultTagName: 'div'
   defaultClassNames: ['description-heading']
 
+  actions:
+    emptyTitle: (item) ->
+      console.log "empty item : "+JSON.stringify item
+      @set('model.title', null)
+    emptyItems: (items) ->
+      console.log "empty items : "+JSON.stringify items
+      @sendAction('emptyHeading', @get('model'))
+
 `export default DescriptionHeadingComponent`

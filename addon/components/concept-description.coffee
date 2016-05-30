@@ -11,7 +11,19 @@ ConceptDescriptionComponent = Ember.Component.extend ClassNamesGetterMixin, TagN
   titleTagName: Ember.computed.alias 'model.title.tagName'
   titleClassNames: Ember.computed.alias 'model.title.classNames'
 
+  ### Note: We make a copy of the config JSON as we will modify the tree and we don't want it to affect the original one ###
+  model: Ember.computed 'config', 'concept', ->
+    JSON.parse(JSON.stringify(@get('config')))
+
   defaultTagName: 'div'
   defaultClassNames: ['concept-description']
+
+  actions:
+    emptyTitle: (item) ->
+      console.log "empty item : "+JSON.stringify item
+      @set('model.title', null)
+    emptyHeadings: (headings) ->
+      console.log "empty headings : "+JSON.stringify headings
+      @set('model.headings', null)
 
 `export default ConceptDescriptionComponent`

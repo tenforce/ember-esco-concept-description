@@ -1,6 +1,6 @@
-{{#if title}}
-  {{description-item model=title concept=concept}}
-{{/if}}
 {{#if items}}
-  {{description-items model=items concept=concept}}
+  {{#if title}}
+    {{description-item model=title concept=concept emptyTitle="emptyItem"}}
+  {{/if}}
+  {{description-items model=items concept=concept emptyItems="emptyItems"}}
 {{/if}}

@@ -1,4 +1,3 @@
-{{#unless (await isEmpty)}}
 {{#if (eq type 'hasMany')}}
   {{#each (await value) as |subvalue|}}
     {{description-display-relation model=subvalue name=subName tagName=getTagName classNames=getClassNames}}
@@ -14,4 +13,3 @@
 {{else}}
   {{description-display-value concept=concept value=(await value) tagName=getTagName classNames=getClassNames}}
 {{/if}}
-{{/unless}}

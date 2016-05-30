@@ -14,11 +14,20 @@ DescriptionItemComponent = Ember.Component.extend  NodeValueMixin,
   tagName: ''
   classNames: ['']
 
+  empty: false
+
+  isEmpty: Ember.observer('empty', () ->
+    if @get('empty') is true then @sendAction('emptyItem', @get('model'))
+  ).on('init')
+
   shouldShow: Ember.computed 'concept', 'model', ->
     if @get('model.showEmpty') is true then return @ensurePromise(true)
     else
-      @get('value').then (value) ->
+      @get('value').then (value) =>
         if value?.length > 0 then return true
-        else return false
+        else
+          @set('empty', true)
+          return false
+
 
 `export default DescriptionItemComponent`
