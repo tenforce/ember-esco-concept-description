@@ -23,6 +23,7 @@ DescriptionDisplayComponent = Ember.Component.extend NodeValue,
   relation: Ember.computed.alias 'model.relation'
   subName: Ember.computed.alias 'relation.name'
 
+
   isArray: Ember.computed 'value', ->
     @get('value').then (value) ->
       if value instanceof Array
@@ -30,11 +31,17 @@ DescriptionDisplayComponent = Ember.Component.extend NodeValue,
       else
         return false
 
-  isEmpty: Ember.computed 'value', ->
-    @get('value').then (value) ->
-      if value
-        return false
-      else
-        return true
+  checkValue: Ember.observer('value', ()->
+    @get('value').then (value) =>
+      unless value then @sendAction('emptyValue', @get('model'))
+  ).on('init')
+
+  actions:
+    emptyRelationMany: (value) ->
+      value.set('hide', true)
+      @get('value').then (values) ->
+        values.removeObject(value)
+    emptyRelationOne: (value) ->
+      value.set('hide', true)
 
 `export default DescriptionDisplayComponent`

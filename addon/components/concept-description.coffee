@@ -20,10 +20,8 @@ ConceptDescriptionComponent = Ember.Component.extend ClassNamesGetterMixin, TagN
 
   actions:
     emptyTitle: (item) ->
-      console.log "empty item : "+JSON.stringify item
       @set('model.title', null)
     emptyHeadings: (headings) ->
-      console.log "empty headings : "+JSON.stringify headings
       @set('model.headings', null)
 
 `export default ConceptDescriptionComponent`

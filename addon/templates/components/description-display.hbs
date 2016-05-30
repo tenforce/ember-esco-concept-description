@@ -1,9 +1,13 @@
 {{#if (eq type 'hasMany')}}
   {{#each (await value) as |subvalue|}}
-    {{description-display-relation model=subvalue name=subName tagName=getTagName classNames=getClassNames}}
+    {{#unless (eq subValue.hide true)}}
+      {{description-display-relation model=subvalue name=subName tagName=getTagName classNames=getClassNames emptyRelationMany="emptyRelationValue"}}
+    {{/unless}}
   {{/each}}
 {{else if (eq type 'hasOne')}}
-  {{description-display-relation model=value name=subName tagName=getTagName classNames=getClassNames}}
+  {{#unless (eq value.hide true)}}
+    {{description-display-relation model=value name=subName tagName=getTagName classNames=getClassNames emptyRelationOne="emptyRelationValue"}}
+  {{/unless}}
 {{else if (eq type 'component')}}
   {{component (await value) concept=concept model=model tagName=getTagName classNames=getClassNames}}
 {{else if (await isArray)}}

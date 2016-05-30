@@ -31,4 +31,12 @@ DescriptionItemShowComponent = Ember.Component.extend ClassNamesGetterMixin, Tag
     if @get('model.target.classNames') then @get('model.target.classNames')
     else @get('defaultTargetClassNames')
 
+  actions:
+    emptyTarget: (target) ->
+      @set('model.target', null)
+      @set('model.label', null)
+    emptyLabel: (label) ->
+      @set('model.label', null)
+
+
 `export default DescriptionItemShowComponent`

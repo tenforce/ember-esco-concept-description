@@ -7,5 +7,10 @@ DescriptionDisplayRelationComponent = Ember.Component.extend
     @get('model').then (model) =>
       model.get(@get('name'))
 
+  checkValue: Ember.observer('value', ()->
+    @get('value').then (value) =>
+      unless value then @sendAction('emptyRelationValue', @get('model'))
+  ).on('init')
+
 
 `export default DescriptionDisplayRelationComponent`
