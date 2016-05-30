@@ -4,30 +4,42 @@
 `import TagNameGetterMixin from '../mixins/tag-name-getter'`
 `import NodeValueMixin from '../mixins/node-value'`
 
-DescriptionItemComponent = Ember.Component.extend  NodeValueMixin,
+DescriptionItemComponent = Ember.Component.extend  NodeValueMixin, ClassNamesGetterMixin, TagNameGetterMixin,
   layout: layout
+
   label: Ember.computed.alias 'model.label'
   target: Ember.computed.alias 'model.target'
-  type: Ember.computed.alias 'target.type'
-  name: Ember.computed.alias 'target.name'
 
-  tagName: ''
-  classNames: ['']
+  defaultTagName: 'div'
+  defaultClassNames: ['description-item']
 
-  empty: false
+  defaultTargetTagName: 'div'
+  defaultTargetClassNames: ['description-display-target']
 
-  isEmpty: Ember.observer('empty', () ->
-    if @get('empty') is true then @sendAction('emptyItem', @get('model'))
-  ).on('init')
+  defaultLabelTagName: 'div'
+  defaultLabelClassNames: ['description-display-label']
 
-  shouldShow: Ember.computed 'concept', 'model', ->
-    if @get('model.showEmpty') is true then return @ensurePromise(true)
-    else
-      @get('value').then (value) =>
-        if value?.length > 0 then return true
-        else
-          @set('empty', true)
-          return false
+  labelTagName: Ember.computed 'model.label.tagName', ->
+    if @get('model.label.tagName') then @get('model.label.tagName')
+    else @get('defaultLabelTagName')
+  labelClassNames: Ember.computed 'model.label.classNames', ->
+    if @get('model.label.classNames') then @get('model.label.classNames')
+    else @get('defaultLabelClassNames')
+
+  targetTagName: Ember.computed 'model.target.tagName', ->
+    if @get('model.target.tagName') then @get('model.target.tagName')
+    else @get('defaultTargetTagName')
+  targetClassNames: Ember.computed 'model.target.classNames', ->
+    if @get('model.target.classNames') then @get('model.target.classNames')
+    else @get('defaultTargetClassNames')
+
+  actions:
+    emptyTarget: (target) ->
+      @sendAction('emptyItem', @get('model'))
+    emptyLabel: (label) ->
+      @set('model.label', null)
+
+
 
 
 `export default DescriptionItemComponent`

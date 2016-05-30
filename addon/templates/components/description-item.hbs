@@ -1,3 +1,6 @@
-{{#if (await shouldShow)}}
-  {{description-item-show model=model concept=concept}}
+{{#if label}}
+  {{description-display concept=concept model=label pTagName=labelTagName pClassNames=labelClassNames emptyValue="emptyLabel" test="test"}}
+{{/if}}
+{{#if target}}
+  {{description-display concept=concept model=target pTagName=targetTagName pClassNames=targetClassNames emptyValue="emptyTarget" test="test"}}
 {{/if}}
