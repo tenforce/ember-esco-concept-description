@@ -1,0 +1,3 @@
+{{#each (await values) as |value|}}
+  {{description-display-relation model=value name=name tagName=getTagName classNames=getClassNames emptyRelationValue="emptyRelationOne"}}
+{{/each}}

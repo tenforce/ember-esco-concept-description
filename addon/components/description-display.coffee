@@ -42,20 +42,10 @@ DescriptionDisplayComponent = Ember.Component.extend NodeValue,
     if @get('empty') then @sendAction('emptyValue', @get('model'))
   ).on('init')
 
-  emptyRelations: 0
-
-  checkValueLength: Ember.observer('emptyRelations', ()->
-      emptyCount = @get('emptyRelations')
-      @get('value').then (values) =>
-        if @get('type') is 'hasMany' and not values instanceof Array
-          @set('empty', true)
-        if values?.length is emptyCount
-          @set('empty', true)
-  ).on('init')
 
   actions:
     emptyRelationMany: (value) ->
-      @set('emptyRelations', (@get('emptyRelations')+1))
+      @set('empty', true)
     emptyRelationOne: (value) ->
       @set('empty', true)
 

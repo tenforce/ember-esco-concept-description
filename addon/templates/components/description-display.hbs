@@ -1,9 +1,9 @@
 {{#if (eq type 'hasMany')}}
-  {{#each (await value) as |subvalue|}}
-    {{description-display-relation model=subvalue name=subName tagName=getTagName classNames=getClassNames emptyRelationValue="emptyRelationMany"}}
-  {{/each}}
+  {{description-display-relations values=value name=subName getTagName=getTagName getClassNames=getClassNames
+  emptyRelations="emptyRelationMany"}}
 {{else if (eq type 'hasOne')}}
-  {{description-display-relation model=value name=subName tagName=getTagName classNames=getClassNames emptyRelationValue="emptyRelationOne"}}
+  {{description-display-relation model=value name=subName tagName=getTagName classNames=getClassNames
+  emptyRelationValue="emptyRelationOne"}}
 {{else if (eq type 'component')}}
   {{component (await value) concept=concept model=model tagName=getTagName classNames=getClassNames}}
 {{else if (await isArray)}}
