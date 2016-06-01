@@ -5,7 +5,7 @@
   {{description-display-relation model=value name=subName tagName=getTagName classNames=getClassNames
   emptyRelationValue="emptyRelationOne"}}
 {{else if (eq type 'component')}}
-  {{component (await value) concept=concept model=model tagName=getTagName classNames=getClassNames}}
+  {{component (await value) concept=concept model=model emptyComponent="emptyComponent" tagName=getTagName classNames=getClassNames}}
 {{else if (await isArray)}}
   {{#each (await value) as |subvalue|}}
     {{description-display-value concept=concept value=subvalue tagName=getTagName classNames=getClassNames}}

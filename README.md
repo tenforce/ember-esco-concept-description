@@ -12,6 +12,7 @@ Notes :
 - the accepted type for labels is "string" though other types might work (but if they don't it won't be changed)
 - the accepted types for targets are "string", "property", "component", "hasOne", "hasMany"
 - empty items and headings will be hidden. It might be possible to force them to show in a next update.
+- if a custom made component is empty and needs to be hidden, it has to send a "emptyComponent" action
 
 An example of JSON configuration file (in coffeescript):
 conceptDescription:

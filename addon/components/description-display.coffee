@@ -44,6 +44,8 @@ DescriptionDisplayComponent = Ember.Component.extend NodeValue,
 
 
   actions:
+    emptyComponent: (value) ->
+      @set('empty', true)
     emptyRelationMany: (value) ->
       @set('empty', true)
     emptyRelationOne: (value) ->
