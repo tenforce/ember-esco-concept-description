@@ -13,6 +13,7 @@ Notes :
 - the accepted types for targets are "string", "property", "component", "hasOne", "hasMany"
 - empty items and headings will be hidden. It might be possible to force them to show in a next update.
 - if a custom made component is empty and needs to be hidden, it has to send a "emptyComponent" action
+- custom components will receive the concept, and any parameters specified in the JSON
 
 An example of JSON configuration file (in coffeescript):
 conceptDescription:
