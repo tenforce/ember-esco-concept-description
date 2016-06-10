@@ -33,7 +33,7 @@ DescriptionDisplayComponent = Ember.Component.extend NodeValue,
 
   checkValue: Ember.observer('value', ()->
     @get('value').then (value) =>
-      unless value?.length > 0 then @set('empty', true)
+      unless ((value?.length > 0) or (value?.content?.length)) then @set('empty', true)
   ).on('init')
 
   empty: false

@@ -4,7 +4,7 @@ NodeValueMixin = Ember.Mixin.create
   ensurePromise: (x) ->
     return new Ember.RSVP.Promise (resolve) ->
       resolve(x)
-  value: Ember.computed 'concept', 'type', ->
+  value: Ember.computed 'concept', 'type', 'name', ->
     res
     if ['string', 'component'].contains(@get('type'))
       res = @get('name')

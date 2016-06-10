@@ -7,7 +7,8 @@ DescriptionDisplayRelationsComponent = Ember.Component.extend
 
   checkValueLength: Ember.observer('values.length', ()->
     @get('values').then (values) =>
-      if values?.get('length') is 0 then @sendAction('emptyRelations', @get('values'))
+      if (values?.get('length') == 0) and (values?.get('content.length') == 0) then @sendAction('emptyRelations', @get('values'))
+
   ).on('init')
 
   actions:
