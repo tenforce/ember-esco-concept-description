@@ -4,6 +4,9 @@
 
 EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   # note: computed properties need promise so await will work...
+  KNOWLEDGE_IRI: "uriForKnowledge"
+  SKILL_IRI: "uriForSkill"
+
   defaultLanguage: "en"
   code: DS.attr('string')
   prefLabels: DS.hasMany('concept-label')
@@ -14,6 +17,18 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   narrower: DS.hasMany('concept', {inverse: 'broader'})
   broader: DS.hasMany('concept', {inverse: 'narrower'})
   relations: DS.hasMany('concept-relation', {inverse: 'from'})
+  skillType: DS.attr('string')
+  optionalKnowledges: Ember.computed 'relations', ->
+    @get('relations').then (relations) =>
+      promises = []
+      promises = relations.map (item) ->
+        promises.push(item.get('to'))
+      Ember.RSVP.all(promises).then =>
+        relations?.filter( (item) ->
+          item.get('type') == 'http://data.europa.eu/esco/RelationshipType#iC.optionalSkill' and
+            item.get('skillType') is @get('KNOWLEDGE_IRI')
+        )?.map (item) ->
+          item.get('to')
   optionalSkills: Ember.computed 'relations', ->
     @get('relations').then (relations) =>
       promises = []
@@ -21,7 +36,8 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
         promises.push(item.get('to'))
       Ember.RSVP.all(promises).then =>
         relations?.filter( (item) ->
-          item.get('type') == 'http://data.europa.eu/esco/RelationshipType#iC.optionalSkill'
+          item.get('type') == 'http://data.europa.eu/esco/RelationshipType#iC.optionalSkill' and
+          item.get('skillType') is @get('SKILL_IRI')
         )?.map (item) ->
           item.get('to')
   essentialSkills: Ember.computed 'relations', ->
@@ -31,7 +47,19 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
         promises.push(item.get('to'))
       Ember.RSVP.all(promises).then =>
         relations?.filter( (item) ->
-          item.get('type') == 'http://data.europa.eu/esco/RelationshipType#iC.essentialSkill'
+          item.get('type') is 'http://data.europa.eu/esco/RelationshipType#iC.essentialSkill' and
+          item.get('skillType') is @get('SKILL_IRI')
+        )?.map (item) ->
+          item.get('to')
+  essentialKnowledges: Ember.computed 'relations', ->
+    @get('relations').then (relations) =>
+      promises = []
+      promises = relations.map (item) ->
+        promises.push(item.get('to'))
+      Ember.RSVP.all(promises).then =>
+        relations?.filter( (item) ->
+          item.get('type') is 'http://data.europa.eu/esco/RelationshipType#iC.essentialSkill' and
+            item.get('skillType') is @get('KNOWLEDGE_IRI')
         )?.map (item) ->
           item.get('to')
   defaultDescription: Ember.computed 'description.@each.language', ->
