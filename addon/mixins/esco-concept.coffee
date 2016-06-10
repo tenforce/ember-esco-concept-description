@@ -4,8 +4,8 @@
 
 EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   # note: computed properties need promise so await will work...
-  KNOWLEDGE_IRI: "uriForKnowledge"
-  SKILL_IRI: "uriForSkill"
+  KNOWLEDGE_IRI: "http://data.europa.eu/esco/SkillCompetenceType#iC.Knowledge"
+  SKILL_IRI: "http://data.europa.eu/esco/SkillCompetenceType#iC.Skill"
 
   defaultLanguage: "en"
   code: DS.attr('string')
