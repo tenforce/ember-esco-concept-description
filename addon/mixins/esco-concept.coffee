@@ -4,6 +4,11 @@
 
 EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   # note: computed properties need promise so await will work...
+  KNOWLEDGE_IRI: "http://data.europa.eu/esco/SkillCompetenceType#iC.Knowledge"
+  SKILL_IRI: "http://data.europa.eu/esco/SkillCompetenceType#iC.Skill"
+  OPTIONAL_SKILL_IRI: "http://data.europa.eu/esco/RelationshipType#iC.optionalSkill"
+  ESSENTIAL_SKILL_IRI: "http://data.europa.eu/esco/RelationshipType#iC.essentialSkill"
+
   defaultLanguage: "en"
   code: DS.attr('string')
   prefLabels: DS.hasMany('concept-label')
@@ -14,26 +19,27 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   narrower: DS.hasMany('concept', {inverse: 'broader'})
   broader: DS.hasMany('concept', {inverse: 'narrower'})
   relations: DS.hasMany('concept-relation', {inverse: 'from'})
+  skillType: DS.attr('string')
+  filterSkills: (type, skillType) ->
+    @get('relations').then (relations) =>
+      promises = relations.map (item) ->
+        Ember.RSVP.hash({to: item.get('to'), relation: item})
+      Ember.RSVP.all(promises).then (filtered) ->
+        relations = []
+        filtered.map (hash) ->
+          relation = hash.relation
+          target = hash.to
+          if relation.get('type') is type and target.get('skillType') is skillType
+            relations.push target
+        relations
+  optionalKnowledges: Ember.computed 'relations', ->
+    @filterSkills(@get('OPTIONAL_SKILL_IRI'), @get('KNOWLEDGE_IRI'))
   optionalSkills: Ember.computed 'relations', ->
-    @get('relations').then (relations) =>
-      promises = []
-      promises = relations.map (item) ->
-        promises.push(item.get('to'))
-      Ember.RSVP.all(promises).then =>
-        relations?.filter( (item) ->
-          item.get('type') == 'http://data.europa.eu/esco/RelationshipType#iC.optionalSkill'
-        )?.map (item) ->
-          item.get('to')
+    @filterSkills(@get('OPTIONAL_SKILL_IRI'), @get('SKILL_IRI'))
   essentialSkills: Ember.computed 'relations', ->
-    @get('relations').then (relations) =>
-      promises = []
-      promises = relations.map (item) ->
-        promises.push(item.get('to'))
-      Ember.RSVP.all(promises).then =>
-        relations?.filter( (item) ->
-          item.get('type') == 'http://data.europa.eu/esco/RelationshipType#iC.essentialSkill'
-        )?.map (item) ->
-          item.get('to')
+    @filterSkills(@get('ESSENTIAL_SKILL_IRI'), @get('SKILL_IRI'))
+  essentialKnowledges: Ember.computed 'relations', ->
+    @filterSkills(@get('ESSENTIAL_SKILL_IRI'), @get('KNOWLEDGE_IRI'))
   defaultDescription: Ember.computed 'description.@each.language', ->
     @get('description')?.filterBy('language', @get('defaultLanguage'))?.get('firstObject.content')
   defaultPrefLabel: Ember.computed 'defaultPrefLabels.firstObject.literalForm', ->
