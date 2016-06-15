@@ -7,9 +7,7 @@
 {{else if (eq type 'component')}}
   {{component (await value) concept=concept model=model emptyComponent="emptyComponent" tagName=getTagName classNames=getClassNames}}
 {{else if (await isArray)}}
-  {{#each (await value) as |subvalue|}}
-    {{description-display-value concept=concept value=subvalue tagName=getTagName classNames=getClassNames}}
-  {{/each}}
+  {{description-display-values values=value getTagName=getTagName getClassNames=getClassNames emptyValues="emptyValues"}}
 {{else}}
-  {{description-display-value concept=concept value=(await value) tagName=getTagName classNames=getClassNames}}
+  {{description-display-value value=value emptyValue="emptyValue" tagName=getTagName classNames=getClassNames}}
 {{/if}}

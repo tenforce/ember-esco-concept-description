@@ -31,17 +31,11 @@ DescriptionDisplayComponent = Ember.Component.extend NodeValue,
       else
         return false
 
-  checkValue: Ember.observer('value', ()->
-    @get('value').then (value) =>
-      unless ((value?.length > 0) or (value?.content?.length)) then @set('empty', true)
-  ).on('init')
-
   empty: false
 
   checkEmpty: Ember.observer('empty', ()->
     if @get('empty') then @sendAction('emptyValue', @get('model'))
   ).on('init')
-
 
   actions:
     emptyComponent: (value) ->
@@ -49,6 +43,10 @@ DescriptionDisplayComponent = Ember.Component.extend NodeValue,
     emptyRelationMany: (value) ->
       @set('empty', true)
     emptyRelationOne: (value) ->
+      @set('empty', true)
+    emptyValues: (values) ->
+      @set('empty', true)
+    emptyValue: (value) ->
       @set('empty', true)
 
 `export default DescriptionDisplayComponent`

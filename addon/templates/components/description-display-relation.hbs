@@ -1,1 +1,5 @@
-{{await value}}
+{{#if (is-pending value)}}
+  loading...
+{{else}}
+  {{await value}}
+{{/if}}
