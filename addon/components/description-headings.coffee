@@ -3,12 +3,9 @@
 `import ClassNamesGetterMixin from '../mixins/class-names-getter'`
 `import TagNameGetterMixin from '../mixins/tag-name-getter'`
 
-DescriptionHeadingsComponent = Ember.Component.extend ClassNamesGetterMixin, TagNameGetterMixin,
+DescriptionHeadingsComponent = Ember.Component.extend
   layout: layout
   headings: Ember.computed.alias 'model.values'
-
-  defaultTagName: 'div'
-  defaultClassNames: ['description-headings']
 
   checkEmpty: Ember.observer('model.values.length', () ->
     unless @get('model.values.length') > 0 then @sendAction('emptyHeadings', @get('model'))

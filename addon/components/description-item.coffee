@@ -4,14 +4,8 @@
 `import TagNameGetterMixin from '../mixins/tag-name-getter'`
 `import NodeValueMixin from '../mixins/node-value'`
 
-DescriptionItemComponent = Ember.Component.extend  NodeValueMixin, ClassNamesGetterMixin, TagNameGetterMixin,
+DescriptionItemComponent = Ember.Component.extend  NodeValueMixin,
   layout: layout
-
-  label: Ember.computed.alias 'model.label'
-  target: Ember.computed.alias 'model.target'
-
-  defaultTagName: 'div'
-  defaultClassNames: ['description-item']
 
   defaultTargetTagName: 'div'
   defaultTargetClassNames: ['description-display-target']

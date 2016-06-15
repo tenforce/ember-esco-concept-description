@@ -4,6 +4,7 @@
 
 DescriptionDisplayComponent = Ember.Component.extend NodeValue,
   layout: layout
+
   type: Ember.computed.alias 'model.type'
   name: Ember.computed.alias 'model.name'
 
