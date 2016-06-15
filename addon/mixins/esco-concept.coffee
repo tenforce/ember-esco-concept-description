@@ -19,27 +19,40 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   narrower: DS.hasMany('concept', {inverse: 'broader'})
   broader: DS.hasMany('concept', {inverse: 'narrower'})
   relations: DS.hasMany('concept-relation', {inverse: 'from'})
+  inverseRelations: DS.hasMany('concept-relation', {inverse: 'to'})
   skillType: DS.attr('string')
-  filterSkills: (type, skillType) ->
-    @get('relations').then (relations) =>
+  filterRelations: (type, filter, inverse) ->
+    relation = null
+    if inverse
+      relation = @get('inverseRelations')
+    else
+      relation = @get('relations')
+    relation.then (relations) =>
       promises = relations.map (item) ->
-        Ember.RSVP.hash({to: item.get('to'), relation: item})
+        Ember.RSVP.hash({target: item.get(if inverse then 'from' else 'to'), relation: item})
       Ember.RSVP.all(promises).then (filtered) ->
         relations = []
         filtered.map (hash) ->
           relation = hash.relation
-          target = hash.to
-          if relation.get('type') is type and target.get('skillType') is skillType
+          target = hash.target
+          if relation.get('type') is type and filter(target)
             relations.push target
         relations
+  _shouldMatchSkillType: (skillType) ->
+    type = @get(skillType)
+    (target) -> target.get('skillType') is type
+  optionalSkillFor: Ember.computed 'inverseRelations', ->
+    @filterRelations(@get('OPTIONAL_SKILL_IRI'), ((target) -> true), true)
+  essentialSkillFor: Ember.computed 'inverseRelations', ->
+    @filterRelations(@get('ESSENTIAL_SKILL_IRI'), ((target) -> true), true)
   optionalKnowledges: Ember.computed 'relations', ->
-    @filterSkills(@get('OPTIONAL_SKILL_IRI'), @get('KNOWLEDGE_IRI'))
+    @filterRelations(@get('OPTIONAL_SKILL_IRI'), @_shouldMatchSkillType('KNOWLEDGE_IRI'))
   optionalSkills: Ember.computed 'relations', ->
-    @filterSkills(@get('OPTIONAL_SKILL_IRI'), @get('SKILL_IRI'))
+    @filterRelations(@get('OPTIONAL_SKILL_IRI'), @_shouldMatchSkillType('SKILL_IRI'))
   essentialSkills: Ember.computed 'relations', ->
-    @filterSkills(@get('ESSENTIAL_SKILL_IRI'), @get('SKILL_IRI'))
+    @filterRelations(@get('ESSENTIAL_SKILL_IRI'), @_shouldMatchSkillType('SKILL_IRI'))
   essentialKnowledges: Ember.computed 'relations', ->
-    @filterSkills(@get('ESSENTIAL_SKILL_IRI'), @get('KNOWLEDGE_IRI'))
+    @filterRelations(@get('ESSENTIAL_SKILL_IRI'), @_shouldMatchSkillType('KNOWLEDGE_IRI'))
   defaultDescription: Ember.computed 'description.@each.language', ->
     @get('description')?.filterBy('language', @get('defaultLanguage'))?.get('firstObject.content')
   defaultPrefLabel: Ember.computed 'defaultPrefLabels.firstObject.literalForm', ->
