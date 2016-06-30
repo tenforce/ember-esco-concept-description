@@ -4,9 +4,9 @@
 
 Segment = Ember.Mixin.create HasManyQuery.ModelMixin,
   preflabel: DS.attr('string')
+  topConcepts: DS.hasMany('concept', inverse: null)
   description: DS.attr('string')
-  hierarchies: DS.hasMany('hierarchy', {inverse: null})
-  primaryHierarchy: DS.belongsTo('hierarchy', {inverse: null})
+  structures: DS.hasMany('structure', inverse: null)
 
 `export default Segment`
 
