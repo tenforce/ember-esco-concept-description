@@ -28,7 +28,7 @@ EscoLabelMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
 
   # modifiers
   setGender: (role, isActive) ->
-    new Promise (resolve, reject) =>
+    new Ember.RSVP.Promise (resolve, reject) =>
       success =   =>
         if isActive
           @get('roles').pushObject(role)
@@ -39,7 +39,7 @@ EscoLabelMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
         reject(err)
       @get('roles').then(success,failure)
   toggleGender: (role) ->
-    new Promise (resolve, reject) =>
+    new Ember.RSVP.Promise (resolve, reject) =>
       success =   =>
         if @get('roles').contains(role)
           @get('roles').removeObject(role)
