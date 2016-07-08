@@ -8,6 +8,14 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   SKILL_IRI: "http://data.europa.eu/esco/SkillCompetenceType#iC.Skill"
   OPTIONAL_SKILL_IRI: "http://data.europa.eu/esco/RelationshipType#iC.optionalSkill"
   ESSENTIAL_SKILL_IRI: "http://data.europa.eu/esco/RelationshipType#iC.essentialSkill"
+  OCCUPATION_IRI: "http://data.europa.eu/esco/model#Occupation"
+
+  isOccupation: Ember.computed 'types', ->
+    if @get('types').contains "http://data.europa.eu/esco/model#Occupation" then return true
+    else return false
+  isSkill: Ember.computed 'types', ->
+    if @get('types').contains "http://data.europa.eu/esco/model#Skill" then return true
+    else return false
 
   defaultLanguage: "en"
   code: DS.attr('string')
@@ -42,9 +50,9 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
     type = @get(skillType)
     (target) -> target.get('skillType') is type
   optionalSkillFor: Ember.computed 'inverseRelations', ->
-    @filterRelations(@get('OPTIONAL_SKILL_IRI'), ((target) -> true), true)
+    @filterRelations(@get('OPTIONAL_SKILL_IRI'), ((target) -> target.get('isOccupation')), true)
   essentialSkillFor: Ember.computed 'inverseRelations', ->
-    @filterRelations(@get('ESSENTIAL_SKILL_IRI'), ((target) -> true), true)
+    @filterRelations(@get('ESSENTIAL_SKILL_IRI'), ((target) -> target.get('isOccupation')), true)
   optionalKnowledges: Ember.computed 'relations', ->
     @filterRelations(@get('OPTIONAL_SKILL_IRI'), @_shouldMatchSkillType('KNOWLEDGE_IRI'))
   optionalSkills: Ember.computed 'relations', ->
