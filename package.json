@@ -1,6 +1,6 @@
 {
   "name": "ember-esco-concept-description",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "The default blueprint for ember-cli addons.",
   "directories": {
     "doc": "doc",

@@ -9,6 +9,8 @@ FormattedDescriptionComponent = Ember.Component.extend
   classNames: "foobarbaz"
   description: Ember.computed 'concept', 'model.properties.name', ->
     description = @get("concept.#{@get('model.properties.name')}")
+    if Ember.isEmpty description
+        return ""
     innerBullet = @get 'bulletClass'
     listingClass= @get 'listingClass'
 
@@ -31,7 +33,7 @@ FormattedDescriptionComponent = Ember.Component.extend
     input = @removeList(input,"Occupations in this minor group are classified into the following unit groups:")
 
     input = @replace(input,"Excluded from this group are:","</span><h4>Excluded from this group are:</h4><span class=\""+listingClass+"\">", true)
-    
+
     # known list structures
     input = @replace(input, "\n (","</span><span class=\""+innerBullet+"\">(")
     input = @replace(input, ">-","><span class=\""+innerBullet+"\">-")
