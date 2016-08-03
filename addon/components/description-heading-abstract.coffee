@@ -7,6 +7,13 @@ DescriptionHeadingAbstractComponent = Ember.Component.extend
   items: Ember.computed 'model.items', ->
     if @get('model.items') then @get('model.items')
     else []
+  displayEmpty: Ember.computed.alias 'model.displayEmpty'
+  empty: false
+  displayAlternate: Ember.computed 'empty', 'displayEmpty', ->
+    if @get('empty') and @get('displayEmpty')
+      @get('items.values').push(@get('displayEmpty'))
+      return true
+    else return false
 
   tagName: ''
   classNames: ['']
@@ -23,8 +30,13 @@ DescriptionHeadingAbstractComponent = Ember.Component.extend
 
   actions:
     emptyTitle: (item) ->
-      @set('model.title', null)
+      unless @get('model.displayEmpty')
+        @set('model.title', null)
     emptyHeading: (item) ->
-      @sendAction('emptyHeading', @get('model'))
+      if @get('model.displayEmpty')
+        @set('empty', true)
+        return false
+      else
+        @sendAction('emptyHeading', @get('model'))
 
 `export default DescriptionHeadingAbstractComponent`

@@ -1,1 +1,5 @@
-{{description-item model=model concept=concept label=label target=target emptyItem="emptyItem" tagName=getTagName classNames=getClassNames}}
+{{#if displayAlternate}}
+  {{description-item model=displayEmpty concept=concept label=displayEmpty.label target=displayEmpty.target emptyItem="emptyItem" tagName=getTagName classNames=getClassNames}}
+{{else}}
+  {{description-item model=model concept=concept label=label target=target emptyItem="emptyItem" tagName=getTagName classNames=getClassNames}}
+{{/if}}

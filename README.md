@@ -15,6 +15,12 @@ Notes :
 - if a custom made component is empty and needs to be hidden, it has to send a "emptyComponent" action
 - custom components will receive the concept, and any parameters specified in the JSON
 
+On a heading and item level, you can also specify something to display in case the inner component is empty. 
+  displayEmpty:
+    target:
+      type: 'string'
+      name: 'None'
+
 An example of JSON configuration file (in coffeescript):
 conceptDescription:
     title:
@@ -76,6 +82,10 @@ conceptDescription:
           {
             classNames: ['concept-skills heading']
             tagName: 'div'
+            displayEmpty:
+              target:
+                type: 'string'
+                name: 'None'
             title:
               classNames: ['concept-skills']
               tagName: 'div'
@@ -86,6 +96,10 @@ conceptDescription:
               values:
                 [
                   {
+                    displayEmpty:
+                      target:
+                        type: 'string'
+                        name: 'None'
                     label:
                       type: 'string'
                       name: 'Essential skills'
