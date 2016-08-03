@@ -41,10 +41,14 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   _shouldMatchSkillType: (skillType) ->
     type = @get(skillType)
     (target) -> target.get('skillType') is type
-  optionalSkillFor: Ember.computed 'inverseRelations', ->
+  optionalSkillForOccupation: Ember.computed 'inverseRelations', ->
     @filterRelations(@get('OPTIONAL_SKILL_IRI'), ((target) -> target.get('isOccupation')), true)
-  essentialSkillFor: Ember.computed 'inverseRelations', ->
+  essentialSkillForOccupation: Ember.computed 'inverseRelations', ->
     @filterRelations(@get('ESSENTIAL_SKILL_IRI'), ((target) -> target.get('isOccupation')), true)
+  optionalSkillForSkill: Ember.computed 'inverseRelations', ->
+    @filterRelations(@get('OPTIONAL_SKILL_IRI'), ((target) -> target.get('isSkill')), true)
+  essentialSkillForSkill: Ember.computed 'inverseRelations', ->
+    @filterRelations(@get('ESSENTIAL_SKILL_IRI'), ((target) -> target.get('isSkill')), true)
   optionalKnowledges: Ember.computed 'relations', ->
     @filterRelations(@get('OPTIONAL_SKILL_IRI'), @_shouldMatchSkillType('KNOWLEDGE_IRI'))
   optionalSkills: Ember.computed 'relations', ->
