@@ -3,7 +3,7 @@ import Concept from './mixins/esco-concept';
 import Label from './mixins/esco-label';
 import LabelRole from './mixins/esco-label-role';
 import Structure from './mixins/esco-structure';
-import Segment from './mixins/esco-segment';
+import ConceptScheme from './mixins/esco-conceptscheme';
 
 var ESCODescription = function () {
   this.Relation = Relation;
@@ -11,10 +11,10 @@ var ESCODescription = function () {
   this.Label = Label;
   this.LabelRole = LabelRole;
   this.Structure = Structure;
-  this.Segment = Segment;
+  this.ConceptScheme = ConceptScheme;
 };
 
 var escoDescription = new ESCODescription();
 
-export { Relation, Concept, Label, LabelRole, Structure, Segment };
+export { Relation, Concept, Label, LabelRole, Structure, ConceptScheme };
 export default escoDescription;
