@@ -5,9 +5,6 @@
 Structure = Ember.Mixin.create HasManyQuery.ModelMixin,
   name: DS.attr('string')
   description: DS.attr('string')
-  # TODO Currently not supported deeply. 
-  predicate: DS.attr('string')
-  conceptScheme: DS.attr('string')
 
 `export default Structure`
 
