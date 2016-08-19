@@ -12,7 +12,7 @@
         {{#if showSkillList}}
           <ul>
             {{#each (await skillsToDisplay) as |skill|}}
-              <li><span {{action "handleSkillClick" skill}}>{{await skill.defaultPrefLabel}}</span></li>
+              <li{{action "handleSkillClick" skill}}>{{await skill.defaultPrefLabel}}</li>
             {{/each}}
           </ul>
         {{/if}}
@@ -27,5 +27,6 @@
         </div>
       {{/if}}
     {{/if}}
+    {{popup-component buttonId=popupButtonId conceptScheme=conceptScheme}}
   </div>
-{{/if}} 
+{{/if}}

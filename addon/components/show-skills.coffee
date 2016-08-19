@@ -8,6 +8,7 @@ ShowSkillsComponent = Ember.Component.extend
   properties: Ember.computed.alias 'model.properties'
   skillLimit: Ember.computed.alias 'properties.skillLimit'
   title: Ember.computed.alias 'properties.title'
+  conceptScheme: Ember.computed.alias 'properties.conceptSchemeId'
   fullDetail: false
   classNames: "skillslistfoo"
   # the skills to be passed in

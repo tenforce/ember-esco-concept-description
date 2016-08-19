@@ -5,6 +5,7 @@ ShowHierarchyComponent = Ember.Component.extend
   layout: layout
   properties: Ember.computed.alias 'model.properties'
   title: Ember.computed.alias 'properties.title'
+  conceptScheme: Ember.computed.alias 'properties.conceptSchemeId'
   showHierarchyElements: false
 
   actions:

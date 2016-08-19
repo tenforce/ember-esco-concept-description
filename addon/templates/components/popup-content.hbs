@@ -1,8 +1,9 @@
-<div class=''>
-  <button type="button">Link</button>
+<div class='note-dialog'>
+  <button type="button" {{action 'filterConcepts'}}>Link</button>
   <button type="button">Create</button>
-  {{input type="type" value=filter placeholder="Search / filter" }}
-  {{!-- {{#if elements}}
-  {{elements}}
-  {{/if}} --}}
+  <input type="text" value= {{filter}} placeholder="Search / filter" onkeyup= {{action "textContentModified"}} />
+
+  {{#if searchResults}}
+    {{searchResults}}
+  {{/if}}
 </div>
