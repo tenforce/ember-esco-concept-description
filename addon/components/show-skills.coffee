@@ -3,6 +3,7 @@
 
 ShowSkillsComponent = Ember.Component.extend
   layout: layout
+  showSkillList: false
   hierarchyCache: Ember.inject.service()
   properties: Ember.computed.alias 'model.properties'
   skillLimit: Ember.computed.alias 'properties.skillLimit'
@@ -11,6 +12,8 @@ ShowSkillsComponent = Ember.Component.extend
   classNames: "skillslistfoo"
   # the skills to be passed in
   skillRelation: Ember.computed.alias 'properties.skillRelation'
+  skillNumber: ''
+
 
   skills: Ember.computed 'concept', 'skillRelation', ->
     @get "concept.#{@get('skillRelation')}"
@@ -20,9 +23,12 @@ ShowSkillsComponent = Ember.Component.extend
     Ember.RSVP.hash(
       shadow: @get('shadowSkills')
       skills: @get('sortedSkills')
-    ).then (hash) ->
-      if hash.shadow then return hash.skills.slice(0, limit)
+    ).then (hash) =>
+      if hash.shadow
+        @set('skillNumber', limit)
+        return hash.skills.slice(0, limit)
       else
+        @set('skillNumber', hash.skills.length)
         return hash.skills
 
   shadowSkills: Ember.computed 'fullDetail','skillLimit', 'skills', 'skills.length', ->
@@ -63,7 +69,7 @@ ShowSkillsComponent = Ember.Component.extend
   sortByPromise: (list, path) ->
     unless Ember.isArray(path)
       path = [path]
-  
+
     promises = list.map (item) ->
       hash = {}
       path.map (key) ->
@@ -80,6 +86,9 @@ ShowSkillsComponent = Ember.Component.extend
         item._sorterItem
 
   actions:
+    showElements: ->
+      @toggleProperty('showSkillList')
+      false
     toggleDetail: ->
       @toggleProperty 'fullDetail'
     handleSkillClick: (skill) ->
