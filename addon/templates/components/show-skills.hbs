@@ -1,31 +1,23 @@
 {{#if (await showSkills)}}
   <div class="skills{{if (await shadowSkills) " shadowed" " open"}}">
-    <div class="section__title" {{action 'showElements'}}>
-      <h2><span>{{title}}<span class='counter'>{{skillNumber}}</span></span></h2>
-    </div>
+    <h3>{{title}}</h3>
     <div class="skills">
       {{#if (is-pending skillsToDisplay) }}
-        <div class="loading">
-          <i class="fa fa-circle-o-notch fa-spin"></i>
-        </div>
+          <div class="loading">
+              <i class="fa fa-circle-o-notch fa-spin"></i>
+          </div>
       {{else}}
-        {{#if showSkillList}}
-          <ul>
-            {{#each (await skillsToDisplay) as |skill|}}
-              <li><span {{action "handleSkillClick" skill}}>{{await skill.defaultPrefLabel}}</span></li>
-            {{/each}}
-          </ul>
-        {{/if}}
+        {{#each (await skillsToDisplay) as |skill|}}
+          <span {{action "handleSkillClick" skill}}>{{await skill.defaultPrefLabel}}</span>
+        {{/each}}
       {{/if}}
     </div>
     {{#if (await shadowSkills)}}
-      {{#if showSkillList}}
-        <div class="btn-toggle-more" {{action "toggleDetail"}} title= {{toggleTooltip}}>
-          <span></span>
-          <span></span>
-          <span></span>
+        <div class="btn-toggle-more" {{action "toggleDetail"}} title={{toggleTooltip}}>
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-      {{/if}}
     {{/if}}
   </div>
 {{/if}}
