@@ -1,0 +1,9 @@
+<div class="">
+  <button type="button" id= {{buttonId}} title= {{buttonTitle}} {{action 'togglePopup'}}>+</button>
+
+  {{#if displayPopup}}
+    {{#tether-dialog close='togglePopup' hasOverlay=false clickOutsideToClose=true target=(dialog-target-generator buttonId) targetAttachment='bottom right' attachment='top left' container-class=popupClasses}}
+      {{popup-content elements=elements}}
+    {{/tether-dialog}}
+  {{/if}}
+</div>

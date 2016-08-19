@@ -3,6 +3,10 @@
 
 HierarchyElementComponent = Ember.Component.extend
   layout: layout
+
+  popupButtonId: Ember.computed ->
+    (@get('buttonId') + @get('title')).replace(/ /g,'')
+
   element: Ember.computed ->
     relatedElement = "concept." + @get 'direction'
     @get(relatedElement).then (relatedConcept) ->
@@ -12,7 +16,7 @@ HierarchyElementComponent = Ember.Component.extend
         promises.push(concept.get('defaultPrefLabel'))
 
       Ember.RSVP.Promise.all(promises).then (labels) ->
-          return labels.sort()
+        return labels.sort()
 
 
 `export default HierarchyElementComponent`
