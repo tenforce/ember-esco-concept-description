@@ -45,12 +45,13 @@ PopupContentComponent = Ember.Component.extend
   _getSearchResults: (query) ->
     promises = []
     promises.push Ember.$.ajax
-      url: '/indexer/search/autocomplete',
+      url: '/indexer/search/similar',
       type: 'GET',
       data: {
         'conceptScheme': @get('conceptScheme'),
         'locale': "en",
-        'text': query
+        'text': query,
+        'numberOfResults': "100"
       },
       contentType: "application/json",
 
