@@ -5,7 +5,6 @@ DescriptionDisplayValuesComponent = Ember.Component.extend
   layout:layout
   init: ->
     this._super()
-    console.log "init values"
   empty: false
   checkValue: Ember.observer('values', ()->
     @get('values').then (values) =>

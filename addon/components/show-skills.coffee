@@ -14,6 +14,8 @@ ShowSkillsComponent = Ember.Component.extend
   # the skills to be passed in
   skillRelation: Ember.computed.alias 'properties.skillRelation'
   skillNumber: ''
+  popupButtonId: Ember.computed ->
+    (@get('buttonId') + @get('title')).replace(/ /g,'')
 
 
   skills: Ember.computed 'concept', 'skillRelation', ->

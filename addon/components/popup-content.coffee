@@ -25,8 +25,7 @@ PopupContentComponent = Ember.Component.extend
 
       ids = filtered.map (item) ->
         item.id
-      # if @get('searchType') == 'concept'
-      #   console.log 'concept'
+
       @get('store').query('concept',
       filter: {id: ids.join(',')}
       include: "pref-labels"
@@ -39,24 +38,6 @@ PopupContentComponent = Ember.Component.extend
           if idMap[id]
             orderedItems.push idMap[id]
         @set 'searchResults', orderedItems
-            # @set 'searchResults', orderedItems
-
-      # if @get('searchType') == 'skill'
-      #   console.log 'skill'
-      #   @get('store').query('skill',
-      #   filter: {id: ids.join(',')}
-      #   include: "pref-labels"
-      #   ).then (items) =>
-      #     idMap = {}
-      #     items.map (item) ->
-      #       idMap[item.get('id')] = item
-      #       orderedItems = []
-      #       ids.map (id) ->
-      #         if idMap[id]
-      #           orderedItems.push idMap[id]
-      #       @set 'searchResults', orderedItems
-      # console.log @get 'searchResults'
-
 
       error: ->
         @set 'searchResults', Ember.A()
@@ -95,8 +76,6 @@ PopupContentComponent = Ember.Component.extend
       if(event.keyCode == 13 && not event.shiftKey)
         if @get 'filter'
           @performSearch()
-        else
-          console.log 'yolo'
 
     filterConcepts: ->
       @get('store').filter 'concept', (concept) =>
