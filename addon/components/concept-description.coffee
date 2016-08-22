@@ -39,10 +39,10 @@ ConceptDescriptionComponent = Ember.Component.extend
     JSON.parse(JSON.stringify(@get('config')))
 
   defaultTagName: 'div'
-  defaultClassNames: ['concept-description']
+  defaultClassNames: ['']
 
   tagName: 'div'
-  classNames: ['concept-description']
+  classNames: ['']
 
   actions:
     emptyTitle: (item) ->

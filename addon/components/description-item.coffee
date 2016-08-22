@@ -8,10 +8,10 @@ DescriptionItemComponent = Ember.Component.extend  NodeValueMixin,
   layout: layout
 
   defaultTargetTagName: 'div'
-  defaultTargetClassNames: ['description-display-target']
+  defaultTargetClassNames: ['']
 
   defaultLabelTagName: 'div'
-  defaultLabelClassNames: ['description-display-label']
+  defaultLabelClassNames: ['']
 
   labelTagName: Ember.computed 'model.label.tagName', ->
     if @get('model.label.tagName') then @get('model.label.tagName')

@@ -9,10 +9,10 @@ DescriptionItemsComponent = Ember.Component.extend
   items: Ember.computed.alias 'model.values'
 
   defaultTagName: 'div'
-  defaultClassNames: ['description-items']
+  defaultClassNames: ['']
 
   tagName: 'div'
-  classNames: ['description-items']
+  classNames: ['']
 
   checkEmpty: Ember.observer('model.values.length', () ->
     unless @get('model.values.length') > 0 then @sendAction('emptyItems', @get('model'))

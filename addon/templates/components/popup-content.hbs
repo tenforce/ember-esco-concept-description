@@ -1,9 +1,9 @@
 <div class=''>
-  <button type="button" {{action 'filterConcepts'}}>Link</button>
-  <button type="button">Create</button>
+  <button type="button" class='link' {{action 'filterConcepts'}}>Link</button>
+  <button type="button" class='create'>Create</button>
   <input type="text" value= {{filter}} placeholder="Search / filter" onkeyup= {{action "textContentModified"}} />
 
   {{#if searchResults}}
-    {{searchResults}}
+    <!-- TODO list -->
   {{/if}}
 </div>

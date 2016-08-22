@@ -8,7 +8,7 @@ DescriptionItemAbstractComponent = Ember.Component.extend
   target: Ember.computed.alias 'model.target'
 
   defaultTagName: 'div'
-  defaultClassNames: ['description-item']
+  defaultClassNames: ['']
 
   tagName: ''
   classNames: ['']

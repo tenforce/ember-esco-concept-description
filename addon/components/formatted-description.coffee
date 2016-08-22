@@ -17,7 +17,7 @@ FormattedDescriptionComponent = Ember.Component.extend
     ender = @findEnder(description)
     @set 'ender', ender
 
-    input = "<span>"+description;
+    input = ""+description;
 
     # known headers
     input = @processList(input, "Tasks include -","</span><h4>Tasks include:</h4>", "flatlist")
@@ -43,7 +43,7 @@ FormattedDescriptionComponent = Ember.Component.extend
     input = @replace(input,"Notes\n","</span><h4>Notes</h4><span>")
     input = @replace(input,"Note\n","</span><h4>Note</h4><span>")
 
-    input = input+"</span>"
+    input = input+""
 
   replace: (input, from, to, removeFirst) ->
     split = input.split(from)
