@@ -10,7 +10,7 @@ ShowSkillsComponent = Ember.Component.extend
   title: Ember.computed.alias 'properties.title'
   conceptScheme: Ember.computed.alias 'properties.conceptSchemeId'
   fullDetail: false
-  classNames: "skillslistfoo"
+  classNames: ""
   # the skills to be passed in
   skillRelation: Ember.computed.alias 'properties.skillRelation'
   skillNumber: ''
