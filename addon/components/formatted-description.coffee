@@ -6,7 +6,7 @@ FormattedDescriptionComponent = Ember.Component.extend
   bulletClass: "inner-bullet"
   listingClass: "inner-listing"
   inlineListClass: "inline-list"
-  classNames: "foobarbaz"
+  classNames: ""
   description: Ember.computed 'concept', 'model.properties.name', ->
     description = @get("concept.#{@get('model.properties.name')}")
     if Ember.isEmpty description
