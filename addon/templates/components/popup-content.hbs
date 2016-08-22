@@ -1,15 +1,17 @@
-<div class=''>
+<div class='popup'>
   <button type="button" class='link' {{action 'filterConcepts'}}>Link</button>
   <button type="button" class='create'>Create</button>
   <input type="text" value= {{filter}} placeholder="Search / filter" onkeyup= {{action "textContentModified"}} />
 
   {{#if searchResults}}
-    <ul>
-      {{#each searchResults as |result|}}
-        <li>{{await result.defaultPrefLabel}}</li>
+    <div class='results'>
+      <ul>
+        {{#each searchResults as |result|}}
+          <li>{{await result.defaultPrefLabel}}</li>
   {{else}}
     <li class="no-results">No results found for <span>{{filter}}</span></li>
-      {{/each}}
-    </ul>
+        {{/each}}
+      </ul>
+    </div>
   {{/if}}
 </div>
