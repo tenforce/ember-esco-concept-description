@@ -10,7 +10,53 @@ PopupContentComponent = Ember.Component.extend
     store = @get('store')
 
     @_getSearchResults(@get('filter')).then (data) =>
-        @set 'searchResults', data
+      searchOrigin = @get('conceptScheme')
+      filtered = data.filter (element) =>
+        if element?.attributes?.type?.indexOf(searchOrigin) >= 0 then return true
+        else return false
+      filtered.sort (a,b) ->
+        if(a?.attributes?.score > b?.attributes?.score)
+          return -1
+        else
+          if(b?.attributes?.score > a?.attributes?.score)
+            return 1
+          else
+            return 0
+
+      ids = filtered.map (item) ->
+        item.id
+      # if @get('searchType') == 'concept'
+      #   console.log 'concept'
+      @get('store').query('concept',
+      filter: {id: ids.join(',')}
+      include: "pref-labels"
+      ).then (items) =>
+        idMap = {}
+        items.map (item) ->
+          idMap[item.get('id')] = item
+        orderedItems = []
+        ids.map (id) ->
+          if idMap[id]
+            orderedItems.push idMap[id]
+        @set 'searchResults', orderedItems
+            # @set 'searchResults', orderedItems
+
+      # if @get('searchType') == 'skill'
+      #   console.log 'skill'
+      #   @get('store').query('skill',
+      #   filter: {id: ids.join(',')}
+      #   include: "pref-labels"
+      #   ).then (items) =>
+      #     idMap = {}
+      #     items.map (item) ->
+      #       idMap[item.get('id')] = item
+      #       orderedItems = []
+      #       ids.map (id) ->
+      #         if idMap[id]
+      #           orderedItems.push idMap[id]
+      #       @set 'searchResults', orderedItems
+      # console.log @get 'searchResults'
+
 
       error: ->
         @set 'searchResults', Ember.A()
