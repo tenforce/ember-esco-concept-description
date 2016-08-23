@@ -1,10 +1,12 @@
 `import Ember from 'ember'`
 `import layout from '../templates/components/popup-content'`
 
+
 PopupContentComponent = Ember.Component.extend
   layout: layout
   store: Ember.inject.service('store')
   filter: ''
+
 
   performSearch: ->
     store = @get('store')
