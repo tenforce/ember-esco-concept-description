@@ -2,6 +2,33 @@
   <button type="button" class='add' id= {{buttonId}} title= {{buttonTitle}} {{action 'togglePopup'}}>+</button>
 
   {{#if displayPopup}}
-      {{popup-content elements=elements conceptScheme=conceptScheme togglePopup=(action 'togglePopup')}}
+    <div class='popup'>
+      <button type="button" class='link'>Link</button>
+      <button type="button" class='create'>Create</button>
+      <input type="search" value= {{filter}} placeholder="Search / filter" onkeyup= {{action "textContentModified"}} />
+
+      {{#if searchResults}}
+        <div class='results'>
+          {{#if (gt numberOfResults 0)}}
+            <ul>
+              {{#each pagedContent as |result|}}
+                <li>{{await result.defaultPrefLabel}}</li>
+              {{/each}}
+            </ul>
+            <div class="pagination-row">
+              {{#if displayPagination}}
+                {{page-numbers content=pagedContent}}
+              {{/if}}
+            </div>
+          {{/if}}
+          {{#unless (gt numberOfResults 0)}}
+            <ul>
+              <li class="no-results">No results found for <span>{{filter}}</span></li>
+            </ul>
+          {{/unless}}
+
+        </div>
+      {{/if}}
+    </div>
   {{/if}}
 </div>
