@@ -1,5 +1,5 @@
 <ul>
   {{#each concept.altLabels as |label|}}
-    <li>{{first-to-uppercase label.literalForm}}<a class='quest-btn' href= {{quest-link-generator label.literalForm targetLanguage}} target="_blank">Q</a></li>
+    <li>{{first-to-uppercase label.literalForm}}<button class='quest-btn' {{action 'goToQuest' label.literalForm}}></button></li>
   {{/each}}
 </ul>
