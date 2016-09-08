@@ -10,7 +10,7 @@ ShowSkillsComponent = Ember.Component.extend
   title: Ember.computed.alias 'properties.title'
   fullDetail: false
   classNames: "skillslistfoo"
-  # the skills to be passed in
+# the skills to be passed in
   skillRelation: Ember.computed.alias 'properties.skillRelation'
   skillNumber: ''
 
@@ -55,7 +55,7 @@ ShowSkillsComponent = Ember.Component.extend
       not Ember.isEmpty(skills)
 
   checkEmpty: Ember.observer('showSkills', ->
-    # TODO check why?
+# TODO check why?
     @get('showSkills').then (result) =>
       unless result then @sendAction('emptyComponent', @get('model'))
   ).on('init')

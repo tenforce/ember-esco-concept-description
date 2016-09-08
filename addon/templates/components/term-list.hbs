@@ -1,8 +1,8 @@
-{{#if concept.altLabels}}
-  <h3 class="description-display-label">Non-preferred terms</h3>
-  <ul>
-    {{#each (await concept.defaultAltLabels) as |label|}}
-      <li>{{first-to-uppercase label.literalForm}}<button class='quest-btn' {{action 'goToQuest' label.literalForm}}></button></li>
-    {{/each}}
-  </ul>
+{{#if concept.defaultAltLabels}}
+    <h3 class="description-display-label">Non-preferred terms</h3>
+    <ul>
+      {{#each (await concept.defaultAltLabels) as |label|}}
+          <li>{{first-to-uppercase label.literalForm}}<button class='quest-btn' {{action 'goToQuest' label.literalForm}}></button></li>
+      {{/each}}
+    </ul>
 {{/if}}
