@@ -6,6 +6,11 @@ TermListComponent = Ember.Component.extend
   properties: Ember.computed.alias 'model.properties'
   targetLanguage: Ember.computed.alias 'properties.targetLanguage'
 
+  checkEmpty: Ember.observer('showSkills', ->
+    @get('concept.defaultAltLabels').then (result) =>
+      unless result.get('length') > 0 then @sendAction('emptyComponent', @get('model'))
+  ).on('init')
+
   actions:
     goToQuest: (text) ->
       text = escape(text)
