@@ -61,8 +61,13 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
     @filterRelations(@get('ESSENTIAL_SKILL_IRI'), @_shouldMatchSkillType('SKILL_IRI'))
   essentialKnowledges: Ember.computed 'relations', ->
     @filterRelations(@get('ESSENTIAL_SKILL_IRI'), @_shouldMatchSkillType('KNOWLEDGE_IRI'))
-  defaultDescription: Ember.computed 'description.@each.language', ->
-    @get('description')?.filterBy('language', @get('defaultLanguage'))?.get('firstObject.content')
+  defaultDescription: Ember.computed 'description.@each.language',
+    get: (key) ->
+      @get('description')?.filterBy('language', @get('defaultLanguage'))?.get('firstObject.content')
+    set: (key, value) ->
+      desc = @get('description')?.filterBy('language', @get('defaultLanguage'))
+      desc?.set('firstObject.content', value)
+
   defaultPrefLabel: Ember.computed 'defaultPrefLabels.firstObject.literalForm', ->
     @get('defaultPrefLabels')?.then (labels) ->
       labels.get('firstObject.literalForm')
