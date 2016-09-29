@@ -4,7 +4,7 @@
 
 EscoLabelMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   literalFormValues: DS.attr('lang-string-set')
-  roles: DS.hasMany('label-role')
+  roles: DS.hasMany('label-role', inverse: null)
 
   # for esco labels have only one literalForm
   literalForm: Ember.computed 'literalFormValues', ->

@@ -19,15 +19,15 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
 
   defaultLanguage: "en"
   code: DS.attr('string')
-  prefLabels: DS.hasMany('concept-label')
-  altLabels: DS.hasMany('concept-label')
-  hiddenLabels: DS.hasMany('concept-label')
+  prefLabels: DS.hasMany('concept-label', inverse: null)
+  altLabels: DS.hasMany('concept-label', inverse: null)
+  hiddenLabels: DS.hasMany('concept-label', inverse: null)
   description: DS.attr('lang-string-set')
   definition: DS.attr('lang-string-set')
   narrower: DS.hasMany('concept', {inverse: 'broader'})
   broader: DS.hasMany('concept', {inverse: 'narrower'})
-  relations: DS.hasMany('concept-relation', {inverse: 'from'})
-  inverseRelations: DS.hasMany('concept-relation', {inverse: 'to'})
+  relations: DS.hasMany('concept-relation', inverse: null)
+  inverseRelations: DS.hasMany('concept-relation', inverse: null)
   skillType: DS.attr('string')
   filterRelations: (type, filter, inverse) ->
     relation = null
