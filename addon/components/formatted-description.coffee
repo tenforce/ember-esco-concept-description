@@ -2,15 +2,19 @@
 `import layout from '../templates/components/formatted-description'`
 
 FormattedDescriptionComponent = Ember.Component.extend
+  checkDescription: Ember.observer('description', ()->
+    if Ember.isEmpty @get 'description'
+      @sendAction('emptyComponent')
+  ).on('init')
   layout: layout
   bulletClass: "inner-bullet"
   listingClass: "inner-listing"
   inlineListClass: "inline-list"
-  classNames: "foobarbaz"
+  classNames: ""
   description: Ember.computed 'concept', 'model.properties.name', ->
     description = @get("concept.#{@get('model.properties.name')}")
     if Ember.isEmpty description
-        return ""
+      return ""
     innerBullet = @get 'bulletClass'
     listingClass= @get 'listingClass'
 
