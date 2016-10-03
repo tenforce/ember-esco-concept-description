@@ -2,5 +2,8 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-esco-concept-description'
+  name: 'ember-esco-concept-description',
+  isDevelopingAddon: function() {
+    return true;
+  }
 };

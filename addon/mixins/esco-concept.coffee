@@ -134,13 +134,24 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   essentialKnowledges: Ember.computed 'relations', ->
     @filterRelations(@get('ESSENTIAL_SKILL_IRI'), @_shouldMatchSkillType('KNOWLEDGE_IRI'))
 
+  defaultDescription: Ember.computed 'description.@each.language',
+    get: (key) ->
+      @get('description')?.filterBy('language', @get('defaultLanguage'))?.get('firstObject.content')
+    set: (key, value) ->
+      desc = @get('description')?.filterBy('language', @get('defaultLanguage'))
+      desc?.set('firstObject.content', value)
 
-  defaultDescription: Ember.computed 'description.@each.language', ->
-    @get('description')?.filterBy('language', @get('defaultLanguage'))?.get('firstObject.content')
+  defaultPrefLabel: Ember.computed 'defaultPrefLabels.firstObject.literalForm',
+    get: (key) ->
+      @get('defaultPrefLabels')?.then (labels) ->
+        labels.get('firstObject.literalForm')
+    set: (key, value) ->
+      @get('defaultPrefLabels')?.then (labels) ->
+        debugger
+        labels?.set('firstObject.literalForm', value)
+        labels?.get('firstObject')?.save()
 
-  defaultPrefLabel: Ember.computed 'defaultPrefLabels.firstObject.literalForm', ->
-    @get('defaultPrefLabels')?.then (labels) ->
-      labels.get('firstObject.literalForm')
+
   defaultAltLabels: Ember.computed 'altLabels', 'defaultLanguage', ->
     @get('altLabels')?.then (labels) =>
       Ember.ArrayProxy.create content: labels?.filterBy('language', @get('defaultLanguage'))
