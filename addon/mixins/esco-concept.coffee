@@ -74,41 +74,14 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
         filtered.map (hash) ->
           relation = hash.relation
           target = hash.target
-          if relation.get('type') is type and filter(target)
+          if type in relation.get('type') and filter(target)
             relations.push target
         # returns the relations array
         relations
 
-  removeRelation: (relation) ->
-    # # define and fetch the relation promise
-    # relations = null
-    # if inverse
-    #   relations = @get('inverseRelations')
-    # else
-    relations = @get('relations')
-
-    relations.then (relationItems) =>
-      promises = relationItems.map (item) ->
-        # check the esco-concept-relation mixin int he same folder
-        # to see the model (/mixin) for the relations
-        # and the domain.lisp file to see the way mu-cl-resources
-        # handles this relationship object
-        #
-        #
-        # the 'from' is the URI for an occupation (isRelationshipFor in the db)
-        # the 'to' is the URI for a skill (refersConcept in the db)
-        # if the inverse attribute is set to true, then we use the 'from' promises
-        # otherwise we use the 'to' promises
-        # Ember.RSVP.hash({target: item.get(if inverse then 'from' else 'to'), relation: item})
-        if((Ember.get(item, 'from.id') == Ember.get(relation, 'id')) or Ember.get(item, 'to.id') == Ember.get(relation, 'id'))
-          relations.removeObject relation
-          @set 'relations', relations
-          @save()
-
-
-
   # helper function to check the skill type of a concept
   # used to define if this concept is a skill or a knowledge
+  # returns a function that checks for the type
   _shouldMatchSkillType: (skillType) ->
     type = @get(skillType)
     (target) -> target.get('skillType') is type
