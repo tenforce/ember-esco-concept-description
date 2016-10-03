@@ -25,6 +25,7 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   hiddenLabels: DS.hasMany('concept-label')
   description: DS.attr('lang-string-set')
   definition: DS.attr('lang-string-set')
+  scopeNote: DS.attr('lang-string-set')
   narrower: DS.hasMany('concept', {inverse: 'broader'})
   broader: DS.hasMany('concept', {inverse: 'narrower'})
   relations: DS.hasMany('concept-relation', {inverse: 'from'})
@@ -112,6 +113,13 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
       @get('description')?.filterBy('language', @get('defaultLanguage'))?.get('firstObject.content')
     set: (key, value) ->
       desc = @get('description')?.filterBy('language', @get('defaultLanguage'))
+      desc?.set('firstObject.content', value)
+
+  defaultScopeNote: Ember.computed 'scopeNote.@each.language',
+    get: (key) ->
+      @get('scopeNote')?.filterBy('language', @get('defaultLanguage'))?.get('firstObject.content')
+    set: (key, value) ->
+      desc = @get('scopeNote')?.filterBy('language', @get('defaultLanguage'))
       desc?.set('firstObject.content', value)
 
   defaultPrefLabel: Ember.computed 'defaultPrefLabels.firstObject.literalForm',
