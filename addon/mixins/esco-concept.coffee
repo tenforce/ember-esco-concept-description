@@ -30,7 +30,7 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   broader: DS.hasMany('concept', {inverse: 'narrower'})
   relations: DS.hasMany('concept-relation', {inverse: 'from'})
   inverseRelations: DS.hasMany('concept-relation', {inverse: 'to'})
-  skillType: DS.attr('string')
+  skillType: DS.attr('string-set')
 
   # function to indicate that this concept is an occupation
   isOccupation: Ember.computed 'types', ->
@@ -85,7 +85,8 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   # returns a function that checks for the type
   _shouldMatchSkillType: (skillType) ->
     type = @get(skillType)
-    (target) -> target.get('skillType') is type
+    # (target) -> target.get('skillType') is type
+    (target) -> type in target.get('skillType')
 
 
 
@@ -112,15 +113,21 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
     get: (key) ->
       @get('description')?.filterBy('language', @get('defaultLanguage'))?.get('firstObject.content')
     set: (key, value) ->
-      desc = @get('description')?.filterBy('language', @get('defaultLanguage'))
-      desc?.set('firstObject.content', value)
+      if @get 'description'
+        desc = @get('description')?.filterBy('language', @get('defaultLanguage'))
+        desc?.set('firstObject.content', value)
+      else
+        @set 'description', [{content: value, language: @get('defaultLanguage')}]
 
   defaultScopeNote: Ember.computed 'scopeNote.@each.language',
     get: (key) ->
       @get('scopeNote')?.filterBy('language', @get('defaultLanguage'))?.get('firstObject.content')
     set: (key, value) ->
-      desc = @get('scopeNote')?.filterBy('language', @get('defaultLanguage'))
-      desc?.set('firstObject.content', value)
+      if @get 'scopeNote'
+        desc = @get('scopeNote')?.filterBy('language', @get('defaultLanguage'))
+        desc?.set('firstObject.content', value)
+      else
+        @set 'scopeNote', [{content: value, language: @get('defaultLanguage')}]
 
   defaultPrefLabel: Ember.computed 'defaultPrefLabels.firstObject.literalForm',
     get: (key) ->
