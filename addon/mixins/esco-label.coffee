@@ -7,8 +7,11 @@ EscoLabelMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   roles: DS.hasMany('label-role')
 
   # for esco labels have only one literalForm
-  literalForm: Ember.computed 'literalFormValues', ->
-    @get('literalFormValues.firstObject.content')
+  literalForm: Ember.computed 'literalFormValues',
+    get: (key) ->
+      @get('literalFormValues.firstObject.content')
+    set: (key, value) ->
+      @set('literalFormValues.firstObject.content', value)
   language: Ember.computed 'literalFormValues', ->
     @get('literalFormValues.firstObject.language')
   # genders

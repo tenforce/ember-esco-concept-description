@@ -137,7 +137,6 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
         labels.get('firstObject.literalForm')
     set: (key, value) ->
       @get('defaultPrefLabels')?.then (labels) ->
-        debugger
         labels?.set('firstObject.literalForm', value)
         labels?.get('firstObject')?.save()
 
