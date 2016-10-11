@@ -44,6 +44,22 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
     if @get('types').contains "http://data.europa.eu/esco/model#Skill" then return true
     else return false
 
+  # function to indicate that this concept is a knowledge skill
+  isSkillKnowledge: Ember.computed 'types', ->
+    if @get 'skillType'
+      if "http://data.europa.eu/esco/SkillCompetenceType#iC.Knowledge" in @get('skillType') then return true
+      else return false
+    else
+      return false
+
+  # function to indicate that this concept is a skill skill
+  isSkillSkill: Ember.computed 'types', ->
+    if @get 'skillType'
+      if "http://data.europa.eu/esco/SkillCompetenceType#iC.Skill" in @get('skillType') then return true
+      else return false
+    else
+      return false
+
   # Returns an array containing all skills that are
   #  - of the said type
   #  - pass the given filter
