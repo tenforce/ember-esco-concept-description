@@ -121,6 +121,16 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
       else
         @set 'description', [{content: value, language: @get('defaultLanguage')}]
 
+  defaultDefinition: Ember.computed 'definition.@each.language',
+    get: (key) ->
+      @get('definition')?.filterBy('language', @get('defaultLanguage'))?.get('firstObject.content')
+    set: (key, value) ->
+      if @get 'definition'
+        desc = @get('definition')?.filterBy('language', @get('defaultLanguage'))
+        desc?.set('firstObject.content', value)
+      else
+        @set 'definition', [{content: value, language: @get('defaultLanguage')}]
+
   defaultScopeNote: Ember.computed 'scopeNote.@each.language',
     get: (key) ->
       @get('scopeNote')?.filterBy('language', @get('defaultLanguage'))?.get('firstObject.content')
