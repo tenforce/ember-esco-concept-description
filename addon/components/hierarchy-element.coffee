@@ -8,15 +8,25 @@ HierarchyElementComponent = Ember.Component.extend
     (@get('buttonId') + @get('title')).replace(/ /g,'')
 
   element: Ember.computed ->
-    relatedElement = "concept." + @get 'direction'
-    @get(relatedElement).then (relatedConcept) ->
-      promises = []
+    direction = @get 'direction'
+    relatedElement = "concept." + direction
 
-      relatedConcept.forEach (concept) ->
-        promises.push(concept.get('defaultPrefLabel'))
+    # TODO untested. Don't know if/where this code is still used. 
+    switch direction
+      when 'broader'
+        @get(relatedElement).then (relatedConcept) ->
+          Ember.RSVP.resolve [relatedConcept.get('defaultPrefLabel')]
+      when 'narrower'
+        @get(relatedElement).then (relatedConcept) ->
+          promises = []
 
-      Ember.RSVP.Promise.all(promises).then (labels) ->
-        return labels.sort()
+          relatedConcept.forEach (concept) ->
+            promises.push(concept.get('defaultPrefLabel'))
+
+          Ember.RSVP.Promise.all(promises).then (labels) ->
+            return labels.sort()
+      else
+        console.error "Invalid direction: " + direction
 
 
 `export default HierarchyElementComponent`

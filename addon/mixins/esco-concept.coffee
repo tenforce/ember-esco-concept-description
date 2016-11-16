@@ -27,7 +27,7 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   definition: DS.attr('lang-string-set')
   scopeNote: DS.attr('lang-string-set')
   narrower: DS.hasMany('concept', {inverse: 'broader'})
-  broader: DS.hasMany('concept', {inverse: 'narrower'})
+  broader: DS.belongsTo('concept', {inverse: 'narrower'})
   replaces: DS.hasMany('concept', {inverse: 'replacements'})
   replacements: DS.hasMany('concept', {inverse: 'replaces'})
   relations: DS.hasMany('concept-relation', {inverse: 'from'})
