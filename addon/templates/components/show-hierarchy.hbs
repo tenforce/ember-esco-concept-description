@@ -1,8 +1,0 @@
-<div class="section__title" {{action 'showElements'}}>
-  <h2><span>{{title}}</span></h2>
-</div>
-{{#if showHierarchyElements}}
-  <div class="section__body">
-    {{hierarchy-element title="Broader" direction='broader' concept=concept buttonId=title conceptScheme=conceptScheme}} {{hierarchy-element title="Narrower" direction='narrower' concept=concept buttonId=title conceptScheme=conceptScheme}}
-  </div>
-{{/if}}
