@@ -4,13 +4,22 @@ NodeValueMixin = Ember.Mixin.create
   ensurePromise: (x) ->
     return new Ember.RSVP.Promise (resolve) ->
       resolve(x)
-  value: Ember.computed 'concept', 'type', 'name', ->
-    res
+
+  setValue: Ember.observer('concept', 'name', 'type', () ->
     if ['string', 'component'].contains(@get('type'))
-      res = @get('name')
-    else if ['property', 'hasMany', 'hasOne'].contains(@get('type'))
-      res = @getProperty(@get('concept'), @get('name'))
-    @ensurePromise(res)
+      Ember.defineProperty @, "value",
+        Ember.computed 'concept', 'type', 'name', ->
+          @ensurePromise(@get('name'))
+    else
+      key = "concept."+@get('name')
+      console.log "key : "+key
+      Ember.defineProperty @, "value",
+        Ember.computed 'concept', 'name', 'type', key, ->
+          res
+          if ['property', 'hasMany', 'hasOne'].contains(@get('type'))
+            res = @getProperty(@get('concept'), @get('name'))
+          @ensurePromise(res)
+  ).on('init')
 
   getProperty: (target, propertyName) ->
     if target then target.get(propertyName)
