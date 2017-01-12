@@ -12,7 +12,6 @@ NodeValueMixin = Ember.Mixin.create
           @ensurePromise(@get('name'))
     else
       key = "concept."+@get('name')
-      console.log "key : "+key
       Ember.defineProperty @, "value",
         Ember.computed 'concept', 'name', 'type', key, ->
           res
