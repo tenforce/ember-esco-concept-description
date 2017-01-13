@@ -20,9 +20,9 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   # Members
   defaultLanguage: "en"
   code: DS.attr('string')
-  prefLabels: DS.hasMany('concept-label')
-  altLabels: DS.hasMany('concept-label')
-  hiddenLabels: DS.hasMany('concept-label')
+  prefLabels: DS.hasMany('concept-label', inverse:null)
+  altLabels: DS.hasMany('concept-label', inverse:null)
+  hiddenLabels: DS.hasMany('concept-label', inverse:null)
   description: DS.attr('lang-string-set')
   definition: DS.attr('lang-string-set')
   scopeNote: DS.attr('lang-string-set')
