@@ -16,18 +16,20 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   OPTIONAL_SKILL_IRI: "http://data.europa.eu/esco/RelationshipType#iC.optionalSkill"
   ESSENTIAL_SKILL_IRI: "http://data.europa.eu/esco/RelationshipType#iC.essentialSkill"
   OCCUPATION_IRI: "http://data.europa.eu/esco/model#Occupation"
+  OCCUPATION_TYPE_IRI: "http://data.europa.eu/esco/model#Occupation"
+  SKILL_TYPE_IRI: "http://data.europa.eu/esco/model#Skill"
 
   # Members
   defaultLanguage: "en"
   code: DS.attr('string')
-  prefLabels: DS.hasMany('concept-label')
-  altLabels: DS.hasMany('concept-label')
-  hiddenLabels: DS.hasMany('concept-label')
+  prefLabels: DS.hasMany('concept-label', inverse:null)
+  altLabels: DS.hasMany('concept-label', inverse:null)
+  hiddenLabels: DS.hasMany('concept-label', inverse:null)
   description: DS.attr('lang-string-set')
   definition: DS.attr('lang-string-set')
   scopeNote: DS.attr('lang-string-set')
   narrower: DS.hasMany('concept', {inverse: 'broader'})
-  broader: DS.belongsTo('concept', {inverse: 'narrower'})
+  broader: DS.hasMany('concept', {inverse: 'narrower'})
   replaces: DS.hasMany('concept', {inverse: 'replacements'})
   replacements: DS.hasMany('concept', {inverse: 'replaces'})
   relations: DS.hasMany('concept-relation', {inverse: 'from'})
@@ -36,18 +38,18 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
 
   # function to indicate that this concept is an occupation
   isOccupation: Ember.computed 'types', ->
-    if @get('types').contains "http://data.europa.eu/esco/model#Occupation" then return true
+    if @get('types').contains @get('OCCUPATION_TYPE_IRI') then return true
     else return false
 
   # function to indicate that this concept is a skill
   isSkill: Ember.computed 'types', ->
-    if @get('types').contains "http://data.europa.eu/esco/model#Skill" then return true
+    if @get('types').contains @get('SKILL_TYPE_IRI') then return true
     else return false
 
   # function to indicate that this concept is a knowledge skill
   isSkillKnowledge: Ember.computed 'types', ->
     if @get 'skillType'
-      if "http://data.europa.eu/esco/SkillCompetenceType#iC.Knowledge" in @get('skillType') then return true
+      if @get('KNOWLEDGE_IRI') in @get('skillType') then return true
       else return false
     else
       return false
@@ -55,7 +57,7 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   # function to indicate that this concept is a skill skill
   isSkillSkill: Ember.computed 'types', ->
     if @get 'skillType'
-      if "http://data.europa.eu/esco/SkillCompetenceType#iC.Skill" in @get('skillType') then return true
+      if @get('SKILL_IRI') in @get('skillType') then return true
       else return false
     else
       return false
@@ -107,11 +109,20 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
     (target) -> type in target.get('skillType')
 
 
-
   optionalSkillFor: Ember.computed 'inverseRelations', ->
     @filterRelations(@get('OPTIONAL_SKILL_IRI'), ((target) -> target.get('isOccupation')), true)
   essentialSkillFor: Ember.computed 'inverseRelations', ->
     @filterRelations(@get('ESSENTIAL_SKILL_IRI'), ((target) -> target.get('isOccupation')), true)
+
+  optionalForOccupation: Ember.computed 'inverseRelations', ->
+    @filterRelations(@get('OPTIONAL_SKILL_IRI'), ((target) -> target.get('isOccupation')), true)
+  essentialForOccupation: Ember.computed 'inverseRelations', ->
+    @filterRelations(@get('ESSENTIAL_SKILL_IRI'), ((target) -> target.get('isOccupation')), true)
+
+  optionalSkillForSkill: Ember.computed 'inverseRelations', ->
+    @filterRelations(@get('OPTIONAL_SKILL_IRI'), ((target) -> target.get('isSkill')), true)
+  essentialSkillForSkill: Ember.computed 'inverseRelations', ->
+    @filterRelations(@get('ESSENTIAL_SKILL_IRI'), ((target) -> target.get('isSkill')), true)
 
 
   # arrays that contain different types of skills

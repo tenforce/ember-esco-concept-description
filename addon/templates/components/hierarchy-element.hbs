@@ -1,9 +1,0 @@
-<div class="section__subtitle">
-  <h3>{{title}}</h3>
-</div>
-<ul class="tags {{direction}}">
-  {{#each (await element) as |item|}}
-    <li>{{item}} <span class='delete'></span></li>
-  {{/each}}
-</ul>
-{{popup-component buttonId=popupButtonId conceptScheme=conceptScheme}}
