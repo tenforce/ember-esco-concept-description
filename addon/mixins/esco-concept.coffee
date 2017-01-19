@@ -136,6 +136,7 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
         desc?.set('firstObject.content', value)
       else
         @set 'description', [{content: value, language: @get('defaultLanguage')}]
+      return value
 
   defaultDefinition: Ember.computed 'definition.@each.language',
     get: (key) ->
@@ -146,6 +147,7 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
         desc?.set('firstObject.content', value)
       else
         @set 'definition', [{content: value, language: @get('defaultLanguage')}]
+      return value
 
   defaultScopeNote: Ember.computed 'scopeNote.@each.language',
     get: (key) ->
@@ -156,6 +158,7 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
         desc?.set('firstObject.content', value)
       else
         @set 'scopeNote', [{content: value, language: @get('defaultLanguage')}]
+      return value
 
   defaultPrefLabel: Ember.computed 'defaultPrefLabels.firstObject.literalForm',
     get: (key) ->
@@ -165,6 +168,7 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
       @get('defaultPrefLabels')?.then (labels) ->
         labels?.set('firstObject.literalForm', value)
         labels?.get('firstObject')?.save()
+      return value
 
 
   defaultAltLabels: Ember.computed 'altLabels', 'defaultLanguage', ->
