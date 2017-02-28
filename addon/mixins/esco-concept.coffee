@@ -4,11 +4,22 @@
 
 EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   # note: computed properties need promise so await will work...
-  KNOWLEDGE_IRI: "http://data.europa.eu/esco/SkillCompetenceType#iC.Knowledge"
+
+  KNOWLEDGE_IRI: "http://data.europa.eu/esco/skill-type/knowledge"
+  SKILL_IRI: "http://data.europa.eu/esco/skill-type/skill"
+  OPTIONAL_SKILL_IRI: "http://data.europa.eu/esco/relationship-type/optional-skill"
+  ESSENTIAL_SKILL_IRI: "http://data.europa.eu/esco/relationship-type/essential-skill"
+  OCCUPATION_IRI: "http://data.europa.eu/esco/model#Occupation"
+  OCCUPATION_TYPE_IRI: "http://data.europa.eu/esco/model#Occupation"
+  SKILL_TYPE_IRI: "http://data.europa.eu/esco/model#Skill"
+
+  # OLD URIS, USE NEWEST #
+  ###KNOWLEDGE_IRI: "http://data.europa.eu/esco/SkillCompetenceType#iC.Knowledge"
   SKILL_IRI: "http://data.europa.eu/esco/SkillCompetenceType#iC.Skill"
   OPTIONAL_SKILL_IRI: "http://data.europa.eu/esco/RelationshipType#iC.optionalSkill"
   ESSENTIAL_SKILL_IRI: "http://data.europa.eu/esco/RelationshipType#iC.essentialSkill"
-  OCCUPATION_IRI: "http://data.europa.eu/esco/model#Occupation"
+  OCCUPATION_IRI: "http://data.europa.eu/esco/model#Occupation"###
+
 
   isOccupation: Ember.computed 'types', ->
     if @get('types').contains "http://data.europa.eu/esco/model#Occupation" then return true
