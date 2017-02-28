@@ -11,13 +11,20 @@
 # The ESCO concept is
 EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   # basic URIS that define the relationship between a skill and a concept
-  KNOWLEDGE_IRI: "http://data.europa.eu/esco/SkillCompetenceType#iC.Knowledge"
-  SKILL_IRI: "http://data.europa.eu/esco/SkillCompetenceType#iC.Skill"
-  OPTIONAL_SKILL_IRI: "http://data.europa.eu/esco/RelationshipType#iC.optionalSkill"
-  ESSENTIAL_SKILL_IRI: "http://data.europa.eu/esco/RelationshipType#iC.essentialSkill"
+  KNOWLEDGE_IRI: "http://data.europa.eu/esco/skill-type/knowledge"
+  SKILL_IRI: "http://data.europa.eu/esco/skill-type/skill"
+  OPTIONAL_SKILL_IRI: "http://data.europa.eu/esco/relationship-type/optional-skill"
+  ESSENTIAL_SKILL_IRI: "http://data.europa.eu/esco/relationship-type/essential-skill"
   OCCUPATION_IRI: "http://data.europa.eu/esco/model#Occupation"
   OCCUPATION_TYPE_IRI: "http://data.europa.eu/esco/model#Occupation"
   SKILL_TYPE_IRI: "http://data.europa.eu/esco/model#Skill"
+
+  # OLD URIS, USE NEWEST #
+  ###KNOWLEDGE_IRI: "http://data.europa.eu/esco/SkillCompetenceType#iC.Knowledge"
+  SKILL_IRI: "http://data.europa.eu/esco/SkillCompetenceType#iC.Skill"
+  OPTIONAL_SKILL_IRI: "http://data.europa.eu/esco/RelationshipType#iC.optionalSkill"
+  ESSENTIAL_SKILL_IRI: "http://data.europa.eu/esco/RelationshipType#iC.essentialSkill"
+  OCCUPATION_IRI: "http://data.europa.eu/esco/model#Occupation"###
 
   # Members
   defaultLanguage: "en"
