@@ -6,13 +6,32 @@ EscoLabelMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   literalFormValues: DS.attr('lang-string-set')
   roles: DS.hasMany('label-role', inverse: null)
 
-  # for esco labels have only one literalForm
-  literalForm: Ember.computed 'literalFormValues', ->
-    @get('literalFormValues.firstObject.content')
-  language: Ember.computed 'literalFormValues', ->
-    @get('literalFormValues.firstObject.language')
+  literalFormObject: Ember.computed 'literalFormValues', 'literalFormValues.firstObject',
+    get: (key) ->
+      @get('literalFormValues.firstObject')
+    set: (key, value) ->
+      @set('literalFormValues.firstObject', value)
+      return value
+
+  literalForm: Ember.computed 'literalFormObject', 'literalFormObject.content',
+    get: (key) ->
+      @get('literalFormObject.content')
+    set: (key, value) ->
+      if @get('literalFormObject') is undefined then @set('literalFormObject', {content: "", language: ""})
+      @set('literalFormObject.content', value)
+      return value
+
+  language: Ember.computed 'literalFormObject', 'literalFormObject.language',
+    get: (key) ->
+      @get('literalFormObject.language')
+    set: (key, value) ->
+      if @get('literalFormObject') is undefined then @set('literalFormObject', {content: "", language: ""})
+      @set('literalFormObject.language', value)
+      return value
+
+
   # genders
-  hasRole: (prefLabel) ->
+  hasGender: (prefLabel) ->
     @get('genders')?.contains(prefLabel)
   genders: Ember.computed.mapBy 'roles', 'preflabel'
   neutral: Ember.computed  'genders', ->
@@ -26,8 +45,11 @@ EscoLabelMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   preferredFemale: Ember.computed 'genders',  ->
     @get('genders')?.contains('standard female term')
 
+  hasRole: (role) ->
+    @get('roles').then (roles) ->
+      return roles.contains(role)
   # modifiers
-  setGender: (role, isActive) ->
+  setRole: (role, isActive) ->
     new Ember.RSVP.Promise (resolve, reject) =>
       success =   =>
         if isActive
@@ -38,7 +60,7 @@ EscoLabelMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
       failure = (err) ->
         reject(err)
       @get('roles').then(success,failure)
-  toggleGender: (role) ->
+  toggleRole: (role) ->
     new Ember.RSVP.Promise (resolve, reject) =>
       success =   =>
         if @get('roles').contains(role)
