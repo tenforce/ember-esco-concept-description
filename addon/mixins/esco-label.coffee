@@ -6,17 +6,30 @@ EscoLabelMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   literalFormValues: DS.attr('lang-string-set')
   roles: DS.hasMany('label-role')
 
-  # for esco labels have only one literalForm
-  literalForm: Ember.computed 'literalFormValues',
+  literalFormObject: Ember.computed 'literalFormValues', 'literalFormValues.firstObject',
     get: (key) ->
-      @get('literalFormValues.firstObject.content')
+      @get('literalFormValues.firstObject')
     set: (key, value) ->
-      @set('literalFormValues.firstObject.content', value)
-  language: Ember.computed 'literalFormValues', ->
-    @get('literalFormValues.firstObject.language')
+      @set('literalFormValues.firstObject', value)
+      return value
+
+  literalForm: Ember.computed 'literalFormObject', 'literalFormObject.content',
+    get: (key) ->
+      @get('literalFormObject.content')
+    set: (key, value) ->
+      if @get('literalFormObject') is undefined then @set('literalFormObject', {content: "", language: ""})
+      @set('literalFormObject.content', value)
+      return value
+
+  language: Ember.computed 'literalFormObject', 'literalFormObject.language',
+    get: (key) ->
+      @get('literalFormObject.language')
+    set: (key, value) ->
+      if @get('literalFormObject') is undefined then @set('literalFormObject', {content: "", language: ""})
+      @set('literalFormObject.language', value)
+      return value
+
   # genders
-  hasRole: (prefLabel) ->
-    @get('genders')?.contains(prefLabel)
   genders: Ember.computed.mapBy 'roles', 'preflabel'
   neutral: Ember.computed  'genders', ->
     @get('genders')?.contains('neutral')
@@ -29,19 +42,20 @@ EscoLabelMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   preferredFemale: Ember.computed 'genders',  ->
     @get('genders')?.contains('standard female term')
 
+  hasGender: (prefLabel) ->
+    @get('genders')?.contains(prefLabel)
+
+  hasRole: (role) ->
+    @get('roles').then (roles) ->
+      return roles.contains(role)
   # modifiers
-  setGender: (role, isActive) ->
-    new Ember.RSVP.Promise (resolve, reject) =>
-      success =   =>
-        if isActive
-          @get('roles').pushObject(role)
-        else
-          @get('roles').removeObject(role)
-        resolve()
-      failure = (err) ->
-        reject(err)
-      @get('roles').then(success,failure)
-  toggleGender: (role) ->
+  setRole: (role, isActive) ->
+    @get('roles').then (roles) =>
+      if isActive
+        roles.pushObject(role)
+      else
+        roles.removeObject(role)
+  toggleRole: (role) ->
     new Ember.RSVP.Promise (resolve, reject) =>
       success =   =>
         if @get('roles').contains(role)
