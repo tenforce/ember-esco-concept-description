@@ -10,6 +10,7 @@ EscoLabelMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
     get: (key) ->
       @get('literalFormValues.firstObject')
     set: (key, value) ->
+      if @get('literalFormValues') is undefined then @set('literalFormValues', [])
       @set('literalFormValues.firstObject', value)
       return value
 
