@@ -6,6 +6,7 @@ Structure = Ember.Mixin.create HasManyQuery.ModelMixin,
   name: DS.attr('string')
   description: DS.attr('string')
   default: DS.attr('boolean')
+  disabled: DS.attr('boolean')
 
 `export default Structure`
 
