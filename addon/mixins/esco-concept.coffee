@@ -42,6 +42,7 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   relations: DS.hasMany('concept-relation', {inverse: 'from'})
   inverseRelations: DS.hasMany('concept-relation', {inverse: 'to'})
   skillType: DS.attr('string-set')
+  skillTypeConcept: DS.belongsTo('concept', {inverse: null})
 
   # function to indicate that this concept is an occupation
   isOccupation: Ember.computed 'types', ->
@@ -49,12 +50,12 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
     else return false
 
   # function to indicate that this concept is a skill
-  isSkill: Ember.computed 'types', ->
+  isSkill: Ember.computed 'types', 'skillType', ->
     if @get('types').contains @get('SKILL_TYPE_IRI') then return true
     else return false
 
   # function to indicate that this concept is a knowledge skill
-  isSkillKnowledge: Ember.computed 'types', ->
+  isSkillKnowledge: Ember.computed 'types', 'skillType', ->
     if @get 'skillType'
       if @get('KNOWLEDGE_IRI') in @get('skillType') then return true
       else return false
