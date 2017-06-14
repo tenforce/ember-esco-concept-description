@@ -43,6 +43,7 @@ EscoConceptMixin = Ember.Mixin.create HasManyQuery.ModelMixin,
   inverseRelations: DS.hasMany('concept-relation', {inverse: 'to'})
   skillType: DS.attr('string-set')
   skillTypeConcept: DS.belongsTo('concept', {inverse: null})
+  skillReuseLevel: DS.belongsTo('concept', {inverse: null})
 
   # function to indicate that this concept is an occupation
   isOccupation: Ember.computed 'types', ->

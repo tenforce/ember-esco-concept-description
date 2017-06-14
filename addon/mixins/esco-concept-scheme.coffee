@@ -5,6 +5,7 @@
 ConceptScheme = Ember.Mixin.create HasManyQuery.ModelMixin,
   preflabel: DS.attr('string-set')
   topConcepts: DS.hasMany('concept', inverse: null)
+  members: DS.hasMany('concept', inverse: null)
   description: DS.attr('string')
 
 `export default ConceptScheme`
